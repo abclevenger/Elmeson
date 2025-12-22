@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Facebook, Instagram, ChevronDown } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -25,6 +26,28 @@ const NAV_ITEMS = [
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const handleMouseEnter = (itemName: string) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        setDropdownOpen(itemName);
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => {
+            setDropdownOpen(null);
+        }, 200); // 200ms delay before closing
+    };
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     return (
         <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
@@ -32,8 +55,15 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <div className="flex-shrink-0">
-                        <Link href="/" className="text-2xl font-bold text-primary tracking-wider font-serif">
-                            EL MESON DE PEPE
+                        <Link href="/" className="flex items-center">
+                            <Image
+                                src="/images/el-meson-de-pepe-key-west-logo.webp"
+                                alt="El Meson de Pepe"
+                                width={180}
+                                height={60}
+                                className="h-12 w-auto"
+                                priority
+                            />
                         </Link>
                     </div>
 
@@ -44,8 +74,8 @@ export default function Navbar() {
                                 <div
                                     key={item.name}
                                     className="relative"
-                                    onMouseEnter={() => item.dropdown && setDropdownOpen(item.name)}
-                                    onMouseLeave={() => setDropdownOpen(null)}
+                                    onMouseEnter={() => item.dropdown && handleMouseEnter(item.name)}
+                                    onMouseLeave={handleMouseLeave}
                                 >
                                     {item.dropdown ? (
                                         <>
@@ -54,16 +84,18 @@ export default function Navbar() {
                                                 <ChevronDown size={16} />
                                             </button>
                                             {dropdownOpen === item.name && (
-                                                <div className="absolute left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
-                                                    {item.dropdown.map((subItem) => (
-                                                        <Link
-                                                            key={subItem.name}
-                                                            href={subItem.href}
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
-                                                        >
-                                                            {subItem.name}
-                                                        </Link>
-                                                    ))}
+                                                <div className="absolute left-0 top-full pt-2">
+                                                    <div className="w-64 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
+                                                        {item.dropdown.map((subItem) => (
+                                                            <Link
+                                                                key={subItem.name}
+                                                                href={subItem.href}
+                                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                                                            >
+                                                                {subItem.name}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             )}
                                         </>
