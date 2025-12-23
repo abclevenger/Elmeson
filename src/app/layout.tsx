@@ -99,6 +99,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${greatVibes.variable} ${playfairDisplay.variable} antialiased`}
+        suppressHydrationWarning
       >
         <OrganizationSchema />
         <a href="#main-content" className="skip-link">

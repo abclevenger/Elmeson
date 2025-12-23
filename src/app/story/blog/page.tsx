@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Calendar, ArrowRight } from "lucide-react";
 import { BreadcrumbSchema } from "@/lib/schema";
+import blogPostsData from "@/data/blog-posts.json";
 
 export const metadata: Metadata = {
   title: "Pepe's Key West Blog - Stories & Guides",
@@ -28,50 +29,39 @@ export const metadata: Metadata = {
   },
 };
 
-const BLOG_POSTS = [
-    {
-        title: "The Cuban Guide to Key West",
-        excerpt: "Discover the best Cuban experiences in Key West, from authentic restaurants to cultural landmarks.",
-        date: "December 15, 2024",
-        slug: "#",
-        image: "/images/hero.webp"
-    },
-    {
-        title: "Best Places to Watch the Sunset in Key West",
-        excerpt: "Key West is famous for its sunsets. Here are the top spots to catch the most breathtaking views.",
-        date: "December 10, 2024",
-        slug: "#",
-        image: "/images/hero.webp"
-    },
-    {
-        title: "Finding the Best Tapas in Key West",
-        excerpt: "A guide to the finest tapas and small plates in Key West, featuring authentic Cuban flavors.",
-        date: "December 5, 2024",
-        slug: "#",
-        image: "/images/hero.webp"
-    },
-    {
-        title: "Best Restaurants in Key West with Live Music",
-        excerpt: "Experience the vibrant nightlife of Key West with live music and delicious food.",
-        date: "November 28, 2024",
-        slug: "#",
-        image: "/images/hero.webp"
-    },
-    {
-        title: "Best Family-Friendly Restaurants in Key West",
-        excerpt: "Planning a family trip? Here are the best restaurants that cater to all ages.",
-        date: "November 20, 2024",
-        slug: "#",
-        image: "/images/hero.webp"
-    },
-    {
-        title: "Best Local Spots to Try in Key West",
-        excerpt: "Go off the beaten path and discover the hidden gems that locals love.",
-        date: "November 15, 2024",
-        slug: "#",
-        image: "/images/hero.webp"
-    },
-];
+// Helper function to extract excerpt from content
+function getExcerpt(content: string, maxLength: number = 160): string {
+  if (!content) return "";
+  // Remove HTML tags
+  const text = content.replace(/<[^>]*>/g, "").replace(/\[[^\]]*\]/g, "");
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength).trim() + "...";
+}
+
+// Helper function to format date
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+// Format all blog posts for display
+const BLOG_POSTS = blogPostsData
+  .filter(post => post.slug) // Only include posts with slugs
+  .map(post => ({
+    title: post.title,
+    excerpt: post.excerpt || getExcerpt(post.content),
+    date: formatDate(post.date),
+    slug: `/story/blog/${post.slug}`,
+    image: (post as any).featuredImage 
+      ? `/images/${(post as any).featuredImage}` 
+      : "/images/hero.webp",
+    rawDate: post.date,
+  }))
+  .sort((a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime());
 
 export default function BlogPage() {
     return (
@@ -115,7 +105,7 @@ export default function BlogPage() {
                             <div className="md:w-2/3 p-6 flex flex-col justify-center">
                                 <div className="flex items-center space-x-2 text-sm text-gray-500 mb-3">
                                     <Calendar size={16} aria-hidden="true" />
-                                    <time dateTime={new Date(post.date).toISOString()}>{post.date}</time>
+                                    <time dateTime={post.rawDate}>{post.date}</time>
                                 </div>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-3 hover:text-primary transition-colors">
                                     <Link href={post.slug}>{post.title}</Link>
