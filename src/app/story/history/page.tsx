@@ -39,7 +39,7 @@ export default function HistoryPage() {
                 <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0">
                         <Image
-                            src="/images/key-west-cuba-history-2048x751.jpg"
+                            src="/images/hero.jpg"
                             alt="History of Key West and Cuba"
                             fill
                             className="object-cover brightness-75"
