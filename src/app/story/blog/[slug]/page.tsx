@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const featuredImage = getFeaturedImage(post);
   const image = featuredImage
     ? `https://www.elmesondepepe.com${featuredImage}`
-    : "https://www.elmesondepepe.com/images/hero.png";
+    : "https://www.elmesondepepe.com/images/hero.jpg";
 
   return {
     title: `${post.title} | Pepe's Key West Blog`,

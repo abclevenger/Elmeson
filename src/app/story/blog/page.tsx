@@ -60,7 +60,7 @@ const BLOG_POSTS = blogPostsData
       excerpt: post.excerpt || getExcerpt(post.content),
       date: formatDate(post.date),
       slug: `/story/blog/${post.slug}`,
-      image: featuredImage || "/images/hero.png",
+      image: featuredImage || "/images/hero.jpg",
       rawDate: post.date,
       readingTime,
       rawSlug: post.slug,
