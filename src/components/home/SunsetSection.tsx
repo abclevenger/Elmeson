@@ -6,7 +6,7 @@ export default function SunsetSection() {
             <div className="oval-section">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12 md:mb-16">
-                        <h2 className="text-5xl md:text-7xl lg:text-8xl text-gray-800 font-script mb-2">
+                        <h2 className="text-5xl md:text-7xl lg:text-8xl text-gray-800 font-serif mb-2">
                             Sunset
                         </h2>
                         <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 uppercase tracking-wide mb-6">

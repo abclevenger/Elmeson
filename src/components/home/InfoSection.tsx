@@ -10,7 +10,7 @@ export default function InfoSection() {
                     {/* Text Content */}
                     <div className="flex-1 space-y-6 md:space-y-8 order-2 md:order-1">
                         <div className="space-y-2">
-                            <h2 className="text-5xl md:text-7xl lg:text-8xl text-gray-800 font-script">
+                            <h2 className="text-5xl md:text-7xl lg:text-8xl text-gray-800 font-serif">
                                 Discover
                             </h2>
                             <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 uppercase tracking-wide">

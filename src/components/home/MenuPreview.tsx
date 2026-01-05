@@ -24,7 +24,7 @@ export default function MenuPreview() {
             <div className="oval-section">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12 md:mb-16">
-                        <h2 className="text-5xl md:text-7xl lg:text-8xl text-gray-800 font-script mb-2">
+                        <h2 className="text-5xl md:text-7xl lg:text-8xl text-gray-800 font-serif mb-2">
                             Discover
                         </h2>
                         <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 uppercase tracking-wide mb-6">
@@ -35,24 +35,24 @@ export default function MenuPreview() {
                         </p>
                     </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                    {FEATURED_ITEMS.map((item) => (
-                        <div
-                            key={item.name}
-                            className="bg-gray-50 p-6 md:p-8 rounded-xl border border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all duration-300 group flex flex-col h-full"
-                        >
-                            <div className="flex justify-between items-start mb-3">
-                                <h3 className="text-xl md:text-2xl font-bold text-secondary group-hover:text-primary transition-colors font-serif pr-2">
-                                    {item.name}
-                                </h3>
-                                <span className="text-primary font-bold text-lg whitespace-nowrap bg-primary/10 px-2 py-1 rounded-md">{item.price}</span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        {FEATURED_ITEMS.map((item) => (
+                            <div
+                                key={item.name}
+                                className="bg-gray-50 p-6 md:p-8 rounded-xl border border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all duration-300 group flex flex-col h-full"
+                            >
+                                <div className="flex justify-between items-start mb-3">
+                                    <h3 className="text-xl md:text-2xl font-bold text-secondary group-hover:text-primary transition-colors font-serif pr-2">
+                                        {item.name}
+                                    </h3>
+                                    <span className="text-primary font-bold text-lg whitespace-nowrap bg-primary/10 px-2 py-1 rounded-md">{item.price}</span>
+                                </div>
+                                <p className="text-base md:text-lg text-gray-600 leading-relaxed flex-grow">
+                                    {item.description}
+                                </p>
                             </div>
-                            <p className="text-base md:text-lg text-gray-600 leading-relaxed flex-grow">
-                                {item.description}
-                            </p>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
 
                     <div className="text-center mt-12 md:mt-16">
                         <Link
