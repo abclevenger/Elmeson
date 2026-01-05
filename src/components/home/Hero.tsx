@@ -35,7 +35,7 @@ export default function Hero() {
 
             {/* Content */}
             <div className="relative z-10 text-center px-6 sm:px-4 max-w-4xl mx-auto space-y-4 sm:space-y-6">
-                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white font-serif drop-shadow-lg">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-serif drop-shadow-lg">
                     Authentic
                 </h1>
 
