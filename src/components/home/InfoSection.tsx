@@ -11,7 +11,7 @@ export default function InfoSection() {
                     <div className="flex-1 space-y-6 md:space-y-8 order-2 md:order-1">
                         <div className="space-y-2">
                             <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-800 font-serif">
-                                Discover
+                                Explore El Meson de Pepe: Menu, History, Events & More
                             </h2>
                             <h3 className="text-lg md:text-xl lg:text-2xl font-serif text-gray-800 uppercase tracking-wide">
                                 OUR STORY

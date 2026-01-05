@@ -25,7 +25,7 @@ export default function MenuPreview() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12 md:mb-16">
                         <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-800 font-serif mb-2">
-                            Discover
+                            Explore El Meson de Pepe: Menu, History, Events & More
                         </h2>
                         <h3 className="text-lg md:text-xl lg:text-2xl font-serif text-gray-800 uppercase tracking-wide mb-6">
                             OUR MENU

@@ -76,18 +76,30 @@ export default function BlogPage() {
         { name: "Our Story", url: "/story" },
         { name: "Pepe's Key West Blog", url: "/story/blog" },
       ]} />
-      <div className="bg-white min-h-screen pt-32 pb-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold text-primary font-serif mb-4">
-              Pepe's Key West Blog
-            </h1>
-            <p className="text-gray-600 text-lg">Stories, guides, and insights from the heart of Key West</p>
-            <div className="h-1 w-24 bg-secondary mx-auto mt-6" />
+      <div className="bg-white min-h-screen">
+        {/* Hero Section */}
+        <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[url('/images/hero.jpg')] bg-cover bg-center" />
+            <div className="absolute inset-0 bg-black/50" />
           </div>
+          <div className="relative z-10 text-center px-4">
+            <h1 className="text-5xl md:text-8xl font-bold text-white font-serif mb-4 tracking-wider uppercase drop-shadow-lg">
+              Pepe&apos;s Key West Blog
+            </h1>
+            <div className="h-1.5 w-32 bg-secondary mx-auto my-6 shadow-lg" />
+            <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto font-light italic drop-shadow-md">
+              Stories, guides, and insights from the heart of Key West
+            </p>
+          </div>
+        </section>
 
-          {/* Search */}
-          <BlogListingClient posts={BLOG_POSTS} />
+        <div className="pb-20 px-4 pt-16">
+          <div className="max-w-5xl mx-auto">
+
+            {/* Search */}
+            <BlogListingClient posts={BLOG_POSTS} />
+          </div>
         </div>
       </div>
     </>
