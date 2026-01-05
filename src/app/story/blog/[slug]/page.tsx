@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     day: "numeric",
   });
 
-  const content = convertWordPressContent(post.content);
+  const content = convertWordPressContent(post.content, post.title);
   const excerpt = post.excerpt || post.content.substring(0, 200).replace(/<[^>]*>/g, "") + "...";
   const featuredImage = getFeaturedImage(post);
   const readingTime = calculateReadingTime(post.content);

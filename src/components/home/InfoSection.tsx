@@ -37,15 +37,13 @@ export default function InfoSection() {
                     {/* Image Content */}
                     <div className="flex-1 relative h-[300px] sm:h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl md:skew-y-2 lg:skew-y-3 hover:skew-y-0 transition-all duration-500 ease-out order-1 md:order-2">
                         <Image
-                            src="/images/food_intro.webp"
-                            alt="Authentic Cuban Cuisine"
+                            src="/images/2022/07/about-el-meson-de-pepe-1-768x403.jpg"
+                            alt="Authentic Cuban cuisine served at El Meson de Pepe in Key West"
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-700"
                             sizes="(max-width: 768px) 100vw, 50vw"
                             loading="lazy"
                             quality={85}
-                            placeholder="blur"
-                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgEDAwUBAAAAAAAAAAAAAQIDAAQRBRIhBhMUMUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAaEQACAwEBAAAAAAAAAAAAAAABAgADESEx/9oADAMBEQACEEPQf//Z"
                         />
                         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl" aria-hidden="true" />
                     </div>

@@ -104,7 +104,7 @@ function convertImagePath(src: string): string {
 /**
  * Convert WordPress content to React components
  */
-export function convertWordPressContent(content: string): React.ReactElement {
+export function convertWordPressContent(content: string, defaultAlt: string = ''): React.ReactElement {
   if (!content) {
     return <></>;
   }
@@ -151,7 +151,7 @@ export function convertWordPressContent(content: string): React.ReactElement {
           let src = domNode.attribs.src || '';
           src = src.replace(/^["']|["']$/g, '');
 
-          const alt = domNode.attribs.alt || '';
+          const alt = domNode.attribs.alt || defaultAlt;
           const width = domNode.attribs.width ? parseInt(domNode.attribs.width) : 800;
           const height = domNode.attribs.height ? parseInt(domNode.attribs.height) : 600;
           const className = domNode.attribs.class || '';
