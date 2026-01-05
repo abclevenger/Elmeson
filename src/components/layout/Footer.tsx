@@ -134,7 +134,7 @@ export default function Footer() {
                     <nav className="flex items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-white/60 font-medium">
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
                         <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-                        <Link href="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
+                        <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
                     </nav>
                 </div>
             </div>
