@@ -40,7 +40,7 @@ export default function Footer() {
                     <div className="lg:col-span-4 space-y-6">
                         <div>
                             <h3 className="text-3xl font-serif text-white tracking-wider uppercase mb-2">El Meson de Pepe</h3>
-                            <p className="text-secondary text-xs font-bold tracking-[0.2em] uppercase">Authentic Cuban Heritage</p>
+                            <p className="text-primary text-xs font-bold tracking-[0.2em] uppercase">Authentic Cuban Heritage</p>
                         </div>
                         <p className="text-white/90 text-sm leading-relaxed max-w-sm font-light">
                             Family owned and operated since 1985. Dedicated to preserving the Cuban-Conch heritage in the heart of Mallory Square.
@@ -59,7 +59,7 @@ export default function Footer() {
                                     rel="noopener noreferrer"
                                     className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:text-white hover:bg-primary/20 hover:border-primary/50 transition-all duration-300 group"
                                 >
-                                    <Icon size={18} className="group-hover:scale-110 transition-transform" />
+                                    <Icon size={18} className="text-white group-hover:scale-110 transition-transform" />
                                 </a>
                             ))}
                         </div>
@@ -81,7 +81,7 @@ export default function Footer() {
                         <h4 className="text-white font-serif uppercase tracking-widest text-sm font-bold">Visit Us</h4>
                         <div className="space-y-4 text-sm text-white/90">
                             <div className="flex items-start gap-3">
-                                <MapPin className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
+                                <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                                 <address className="not-italic">
                                     410 Wall Street<br />
                                     Mallory Square<br />
@@ -89,7 +89,7 @@ export default function Footer() {
                                 </address>
                             </div>
                             <div className="flex items-center gap-3">
-                                <Phone className="w-5 h-5 text-secondary shrink-0" />
+                                <Phone className="w-5 h-5 text-primary shrink-0" />
                                 <a href="tel:+13052952620" className="hover:text-white transition-colors font-semibold">305-295-2620</a>
                             </div>
                             <div className="pt-4 border-t border-white/10 mt-2">
