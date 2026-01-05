@@ -92,6 +92,21 @@ export default function Footer() {
                                 <Phone className="w-5 h-5 text-primary shrink-0" />
                                 <a href="tel:+13052952620" className="hover:text-white transition-colors font-semibold">305-295-2620</a>
                             </div>
+
+                            {/* Google Map */}
+                            <div className="mt-4 rounded-xl overflow-hidden border border-white/10 h-32 w-full group">
+                                <iframe
+                                    src="https://maps.google.com/maps?cid=12074568368866857534&output=embed"
+                                    loading="lazy"
+                                    width="100%"
+                                    height="100%"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    title="Google Map"
+                                    allowFullScreen
+                                    className="border-0 grayscale invert-[0.85] contrast-[1.2] opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                                />
+                            </div>
+
                             <div className="pt-4 border-t border-white/10 mt-2">
                                 <p className="mb-1 flex justify-between"><span className="text-white font-semibold">Mon-Thu:</span> <span>11am - 9pm</span></p>
                                 <p className="flex justify-between"><span className="text-white font-semibold">Fri-Sun:</span> <span>11am - 10pm</span></p>
