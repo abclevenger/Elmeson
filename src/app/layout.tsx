@@ -131,6 +131,11 @@ export default function RootLayout({
             `,
           }}
         />
+        <Script
+          src="https://link.ymbs.pro/js/external-tracking.js"
+          data-tracking-id="tk_3de1f1b5d7ef4de1a4230dc8d4b3919e"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

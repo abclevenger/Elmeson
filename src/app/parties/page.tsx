@@ -101,11 +101,11 @@ export default function PrivatePartiesPage() {
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
                             {[
-                                { title: "1/2 The Garden", price: "$200" },
-                                { title: "Whole Garden", price: "$400" },
-                                { title: "1/2 The Inside", price: "$300" },
-                                { title: "Whole Inside", price: "$500" },
-                                { title: "Satellite Bar", price: "$200" },
+                                { title: "1/2 The Garden", price: "$450" },
+                                { title: "Whole Garden", price: "$850" },
+                                { title: "1/2 The Inside", price: "$500" },
+                                { title: "Whole Inside", price: "$950" },
+                                { title: "Satellite Bar", price: "$400" },
                             ].map((fee, idx) => (
                                 <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-100 text-center hover:border-secondary transition-colors shadow-sm hover:shadow-md">
                                     <h3 className="text-secondary font-serif text-lg mb-2">{fee.title}</h3>
@@ -117,15 +117,15 @@ export default function PrivatePartiesPage() {
                         <div className="grid md:grid-cols-4 gap-8 text-center max-w-5xl mx-auto mb-20 px-4">
                             <div className="group">
                                 <p className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-2">Set-up Fee</p>
-                                <p className="text-2xl font-bold font-serif text-primary">$1.50 <span className="text-xs font-normal text-gray-400">per person</span></p>
+                                <p className="text-2xl font-bold font-serif text-primary">$2.50 <span className="text-xs font-normal text-gray-400">per person</span></p>
                             </div>
                             <div className="group">
                                 <p className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-2">Linen Rental*</p>
-                                <p className="text-2xl font-bold font-serif text-primary">$1.50 <span className="text-xs font-normal text-gray-400">per person</span></p>
+                                <p className="text-2xl font-bold font-serif text-primary">$2.50 <span className="text-xs font-normal text-gray-400">per person</span></p>
                             </div>
                             <div className="group">
                                 <p className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-2">Standard Gratuity</p>
-                                <p className="text-2xl font-bold font-serif text-primary">20% <span className="text-xs font-normal text-gray-400">of total bill</span></p>
+                                <p className="text-2xl font-bold font-serif text-primary">22% <span className="text-xs font-normal text-gray-400">of total bill</span></p>
                             </div>
                             <div className="group">
                                 <p className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-2">Sales Tax</p>
@@ -178,99 +178,127 @@ export default function PrivatePartiesPage() {
                             <p className="text-gray-600 text-lg max-w-2xl mx-auto font-light">Authentic Cuban buffets for groups larger than 25 guests.</p>
                         </div>
 
-                        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                             {/* Buffet Option 1 */}
-                            <div className="bg-white rounded-[3rem] p-12 shadow-2xl border border-gray-100 flex flex-col hover:shadow-primary/10 transition-all group overflow-hidden relative">
-                                <div className="absolute top-0 right-0 p-8 text-primary/5 font-serif text-8xl pointer-events-none">01</div>
-                                <h3 className="text-3xl font-bold text-primary font-serif mb-4 group-hover:text-secondary transition-colors">Buffet Option 1</h3>
-                                <div className="flex items-baseline mb-10 pb-6 border-b border-gray-50">
-                                    <span className="text-5xl font-bold text-primary font-serif">$33.00</span>
-                                    <span className="text-gray-500 ml-2 text-sm font-medium">per person + tax/gratuity</span>
+                            <div className="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 flex flex-col hover:shadow-primary/5 transition-all group overflow-hidden relative">
+                                <div className="absolute top-0 right-0 p-6 text-primary/5 font-serif text-7xl pointer-events-none">01</div>
+                                <h3 className="text-2xl font-bold text-primary font-serif mb-4 group-hover:text-secondary transition-colors uppercase">Buffet Option 1</h3>
+                                <div className="flex items-baseline mb-8 pb-6 border-b border-gray-50">
+                                    <span className="text-4xl font-bold text-primary font-serif">$65.00</span>
+                                    <span className="text-gray-500 ml-2 text-xs font-medium">per person + tax/gratuity</span>
                                 </div>
 
-                                <div className="space-y-8 grow">
+                                <div className="space-y-6 grow">
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Appetizers (Choose Two - Family Style)</h4>
-                                        <ul className="grid grid-cols-2 gap-2 text-sm text-gray-700 font-medium">
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Conch Fritters</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Chicken Wings</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Masitas de Cerdo</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Fried Squid Rings</li>
-                                        </ul>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Appetizers (Family Style)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Two</p>
                                     </section>
 
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Salad (Choose One - Table Side)</h4>
-                                        <ul className="flex gap-6 text-sm text-gray-700 font-bold italic">
-                                            <li>Caesar Salad</li>
-                                            <li>House Salad</li>
-                                        </ul>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Salad (Table Side)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose One</p>
                                     </section>
 
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Entrees (Choose Two - Buffet)</h4>
-                                        <ul className="grid grid-cols-2 gap-2 text-sm text-gray-700 font-medium">
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Roast Pork</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Baked Garlic Chicken</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Picadillo</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Ropa Vieja</li>
-                                        </ul>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Entrees (On Buffet)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Two</p>
                                     </section>
 
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Sides & Sweets</h4>
-                                        <p className="text-sm text-gray-600 mb-2 italic">Sides (Choose 3): Yellow/White Rice, Moro, Black Beans, Plantains, Yucca</p>
-                                        <p className="text-sm text-gray-600 italic">Dessert (Choose 1): Key Lime Pie or Flan</p>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Sides (On Buffet)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Desserts</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose One</p>
                                     </section>
                                 </div>
 
-                                <div className="mt-12 pt-8 border-t border-gray-100 italic text-xs text-primary/60 font-medium">
+                                <div className="mt-8 pt-6 border-t border-gray-100 italic text-[10px] text-primary/60 font-medium">
+                                    Cuban bread, iced tea, fountain drinks, and American coffee included.
+                                </div>
+                            </div>
+
+                            {/* Golden Buffet Option - Highlighted Center */}
+                            <div className="bg-white rounded-[3rem] p-10 shadow-2xl border-2 border-secondary flex flex-col scale-105 z-10 hover:shadow-secondary/10 transition-all group overflow-hidden relative">
+                                <div className="absolute top-0 right-0 p-6 text-secondary/5 font-serif text-7xl pointer-events-none">02</div>
+                                <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-secondary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest shadow-lg">Most popular</div>
+                                <h3 className="text-2xl font-bold text-primary font-serif mb-4 group-hover:text-secondary transition-colors uppercase">Golden Buffet Menu</h3>
+                                <div className="flex items-baseline mb-8 pb-6 border-b border-gray-50">
+                                    <span className="text-4xl font-bold text-primary font-serif">$85.00</span>
+                                    <span className="text-gray-500 ml-2 text-xs font-medium">per person + tax/gratuity</span>
+                                </div>
+
+                                <div className="space-y-6 grow">
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Appetizers (Family Style)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Salad (Table Side)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose One</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Entrees (On Buffet)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Sides (On Buffet)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Desserts</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Two</p>
+                                    </section>
+                                </div>
+
+                                <div className="mt-8 pt-6 border-t border-gray-100 italic text-[11px] text-primary font-bold leading-relaxed">
                                     Cuban bread, iced tea, fountain drinks, and American coffee included.
                                 </div>
                             </div>
 
                             {/* Buffet Option 2 */}
-                            <div className="bg-white rounded-[3rem] p-12 shadow-2xl border border-gray-100 flex flex-col hover:shadow-secondary/10 transition-all group overflow-hidden relative">
-                                <div className="absolute top-0 right-0 p-8 text-secondary/5 font-serif text-8xl pointer-events-none">02</div>
-                                <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-secondary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest shadow-lg">Most popular</div>
-                                <h3 className="text-3xl font-bold text-primary font-serif mb-4 group-hover:text-secondary transition-colors">Buffet Option 2</h3>
-                                <div className="flex items-baseline mb-10 pb-6 border-b border-gray-50">
-                                    <span className="text-5xl font-bold text-primary font-serif">$41.00</span>
-                                    <span className="text-gray-500 ml-2 text-sm font-medium">per person + tax/gratuity</span>
+                            <div className="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 flex flex-col hover:shadow-primary/5 transition-all group overflow-hidden relative">
+                                <div className="absolute top-0 right-0 p-6 text-primary/5 font-serif text-7xl pointer-events-none">03</div>
+                                <h3 className="text-2xl font-bold text-primary font-serif mb-4 group-hover:text-secondary transition-colors uppercase">Buffet Option 2</h3>
+                                <div className="flex items-baseline mb-8 pb-6 border-b border-gray-50">
+                                    <span className="text-4xl font-bold text-primary font-serif">$75.00</span>
+                                    <span className="text-gray-500 ml-2 text-xs font-medium">per person + tax/gratuity</span>
                                 </div>
 
-                                <div className="space-y-8 grow">
+                                <div className="space-y-6 grow">
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Appetizers (Choose Three - Family Style)</h4>
-                                        <ul className="grid grid-cols-2 gap-2 text-sm text-gray-700 font-medium">
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Garlic Shrimps</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Garlic Pork Cubes</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Fried Squid Rings</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Chicken Wings</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-secondary" /> Conch Fritters</li>
-                                        </ul>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Appetizers (Family Style)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
                                     </section>
 
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Salad & Entrees</h4>
-                                        <p className="text-sm text-gray-600 mb-4 italic">Salad (Table Side): House or Caesar</p>
-                                        <ul className="grid grid-cols-2 gap-2 text-sm text-gray-700 font-bold">
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Roast Pork</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Garlic Shrimp</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Grilled Grouper</li>
-                                            <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> Pollo Meson</li>
-                                            <li className="flex items-center gap-2 text-primary/50"><div className="w-1.5 h-1.5 rounded-full bg-primary/20" /> & more...</li>
-                                        </ul>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Salad (Table Side)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose One</p>
                                     </section>
 
                                     <section>
-                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-4">Sides & Sweets</h4>
-                                        <p className="text-sm text-gray-600 mb-2 italic">Sides (Choose 3): All Option 1 + Boiled/Fried Yucca</p>
-                                        <p className="text-sm text-gray-700 font-bold italic">Dessert (Choose 2): Tres Leche, Flan, or Key Lime Pie</p>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Entrees (On Buffet)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Sides (On Buffet)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Three</p>
+                                    </section>
+
+                                    <section>
+                                        <h4 className="text-secondary uppercase tracking-widest text-[10px] font-bold mb-3">Desserts (Table Side)</h4>
+                                        <p className="text-sm text-gray-700 font-bold italic">Choose Two</p>
                                     </section>
                                 </div>
 
-                                <div className="mt-12 pt-8 border-t border-gray-100 italic text-xs text-primary/60 font-medium">
+                                <div className="mt-8 pt-6 border-t border-gray-100 italic text-[10px] text-primary/60 font-medium">
                                     Cuban bread, iced tea, fountain drinks, and American coffee included.
                                 </div>
                             </div>
