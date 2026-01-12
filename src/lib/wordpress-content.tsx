@@ -152,8 +152,14 @@ export function convertWordPressContent(content: string, defaultAlt: string = ''
           src = src.replace(/^["']|["']$/g, '');
 
           const alt = domNode.attribs.alt || defaultAlt;
-          const width = domNode.attribs.width ? parseInt(domNode.attribs.width) : 800;
-          const height = domNode.attribs.height ? parseInt(domNode.attribs.height) : 600;
+          const parseDimension = (raw?: string): number | undefined => {
+            if (!raw) return undefined;
+            const n = Number.parseInt(raw, 10);
+            return Number.isFinite(n) && n > 0 ? n : undefined;
+          };
+
+          const width = parseDimension(domNode.attribs.width);
+          const height = parseDimension(domNode.attribs.height);
           const className = domNode.attribs.class || '';
 
           const convertedSrc = convertImagePath(src);
@@ -174,7 +180,10 @@ export function convertWordPressContent(content: string, defaultAlt: string = ''
 
           // Use Next.js Image for local images
           // Use a reasonable aspect ratio if dimensions are invalid
-          const aspectRatio = width > 0 && height > 0 ? width / height : 16 / 9;
+          const aspectRatio =
+            width && height
+              ? width / height
+              : 16 / 9;
 
           return (
             <div className="my-6 relative w-full rounded-lg overflow-hidden shadow-lg" style={{ aspectRatio: aspectRatio }}>

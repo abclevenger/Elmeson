@@ -4,7 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Facebook, Instagram, ChevronDown } from "lucide-react";
+import { Menu, X, Facebook, Instagram, ChevronDown, Settings, Users, Link as LinkIcon, LogOut } from "lucide-react";
+import { createClient } from "@/lib/supabase-browser";
+import { useRouter } from "next/navigation";
 
 const NAV_ITEMS = [
     { name: "Home", href: "/" },
@@ -28,11 +30,43 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [userEmail, setUserEmail] = useState<string | null>(null);
     const pathname = usePathname();
+    const router = useRouter();
+    const supabase = createClient();
     
+    // Check if user is admin
+    useEffect(() => {
+        const checkAdmin = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('role, email')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (profile && profile.role === 'admin') {
+                    setIsAdmin(true);
+                    setUserEmail(profile.email);
+                }
+            }
+        };
+        checkAdmin();
+    }, [supabase, pathname]);
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        setIsAdmin(false);
+        setUserEmail(null);
+        router.push('/');
+        router.refresh();
+    };
+
     // Determine if navbar should be transparent (only on home page initially)
     // Default to transparent on home page until scroll is detected
-    const isTransparent = pathname === "/" && !isScrolled;
+    const isTransparent = pathname === "/" && !isScrolled && !isAdmin;
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const menuButtonRef = useRef<HTMLButtonElement>(null);
     const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -182,8 +216,8 @@ export default function Navbar() {
     // Scroll detection for transparent navbar on home page
     // Optimized with throttling for better mobile performance
     useEffect(() => {
-        // Only apply transparent navbar on home page
-        if (pathname !== "/") {
+        // Only apply transparent navbar on home page and when not admin
+        if (pathname !== "/" || isAdmin) {
             setIsScrolled(true);
             return;
         }
@@ -246,8 +280,165 @@ export default function Navbar() {
             window.removeEventListener("resize", onResize);
             if (timeoutId) clearTimeout(timeoutId);
         };
-    }, [pathname]);
+    }, [pathname, isAdmin]);
+
+    // Admin navbar - blog platform style
+    if (isAdmin) {
+        return (
+            <nav 
+                className="fixed top-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm"
+                role="navigation" 
+                aria-label="Admin navigation"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-16">
+                        {/* Logo */}
+                        <div className="flex-shrink-0">
+                            <Link href="/admin/blog" className="flex items-center" aria-label="Admin Dashboard">
+                                <span className="text-xl font-bold text-primary font-serif">El Meson Admin</span>
+                            </Link>
+                        </div>
+
+                        {/* Desktop Menu */}
+                        <div className="hidden md:flex items-center space-x-6">
+                            <Link 
+                                href="/admin/blog" 
+                                className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+                            >
+                                Posts
+                            </Link>
+                            <Link 
+                                href="/admin/blog/new" 
+                                className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+                            >
+                                New Post
+                            </Link>
+                            <div 
+                                className="relative group"
+                                onMouseEnter={() => setDropdownOpen('settings')}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <button
+                                    className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+                                >
+                                    <Settings size={18} />
+                                    <span>Settings</span>
+                                    <ChevronDown size={16} />
+                                </button>
+                                {dropdownOpen === 'settings' && (
+                                    <div className="absolute right-0 top-full pt-2">
+                                        <div className="w-56 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
+                                            <Link
+                                                href="/admin/users"
+                                                className="flex items-center space-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                                            >
+                                                <Users size={18} />
+                                                <span>Manage Users</span>
+                                            </Link>
+                                            <Link
+                                                href="/admin/integrations"
+                                                className="flex items-center space-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                                            >
+                                                <LinkIcon size={18} />
+                                                <span>Integrations</span>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* User Info & Logout */}
+                        <div className="flex items-center space-x-4">
+                            <span className="text-sm text-gray-600 hidden sm:inline">{userEmail}</span>
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center space-x-1 text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
+                            >
+                                <LogOut size={18} />
+                                <span className="hidden sm:inline">Logout</span>
+                            </button>
+                        </div>
+
+                        {/* Mobile menu button */}
+                        <div className="md:hidden">
+                            <button
+                                ref={menuButtonRef}
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="p-2 rounded-md text-gray-700 hover:text-primary"
+                                aria-label={isOpen ? "Close menu" : "Open menu"}
+                                aria-expanded={isOpen}
+                            >
+                                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Menu */}
+                {isOpen && (
+                    <div
+                        id="mobile-menu"
+                        ref={mobileMenuRef}
+                        className="md:hidden bg-white border-t border-gray-200"
+                    >
+                        <div className="px-4 py-4 space-y-3">
+                            <Link
+                                href="/admin/blog"
+                                className="block px-4 py-2 text-gray-700 hover:text-primary rounded-md"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Posts
+                            </Link>
+                            <Link
+                                href="/admin/blog/new"
+                                className="block px-4 py-2 text-gray-700 hover:text-primary rounded-md"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                New Post
+                            </Link>
+                            <div className="border-t border-gray-200 pt-3">
+                                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                    Settings
+                                </div>
+                                <Link
+                                    href="/admin/users"
+                                    className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-primary rounded-md"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <Users size={18} />
+                                    <span>Manage Users</span>
+                                </Link>
+                                <Link
+                                    href="/admin/integrations"
+                                    className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-primary rounded-md"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <LinkIcon size={18} />
+                                    <span>Integrations</span>
+                                </Link>
+                            </div>
+                            <div className="border-t border-gray-200 pt-3">
+                                <div className="px-4 py-2 text-sm text-gray-600">{userEmail}</div>
+                                <button
+                                    onClick={() => {
+                                        handleLogout();
+                                        setIsOpen(false);
+                                    }}
+                                    className="flex items-center space-x-2 w-full px-4 py-2 text-red-600 hover:text-red-700 rounded-md"
+                                >
+                                    <LogOut size={18} />
+                                    <span>Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </nav>
+        );
+    }
     
+    // Regular navbar for non-admin users
     return (
         <nav 
             className={`fixed top-0 w-full z-50 transition-all duration-300 ${

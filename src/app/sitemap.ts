@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
 import blogPostsData from '@/data/blog-posts.json';
+import { supabase } from '@/lib/supabase';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.elmesondepepe.com';
 
   // Get current date for lastModified
@@ -64,13 +65,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const blogPosts = blogPostsData.map((post) => ({
+  // Pull published posts from Supabase (source of truth in production).
+  // Keep JSON as a safety net (and for local dev) while avoiding duplicates.
+  let dbPosts: Array<{ slug: string; date: string; modified: string }> = [];
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('slug,date,modified,post_status')
+      .eq('post_status', 'publish')
+      .order('date', { ascending: false });
+
+    if (!error && data) {
+      dbPosts = (data as any[]).map((p) => ({
+        slug: p.slug,
+        date: p.date,
+        modified: p.modified ?? p.date,
+      }));
+    }
+  } catch {
+    // ignore - we'll fall back to JSON below
+  }
+
+  const jsonPosts = blogPostsData
+    .filter((p) => p.slug && p.postStatus === 'publish')
+    .map((post) => ({
+      slug: post.slug,
+      date: String(post.date),
+      modified: String(post.modified || post.date),
+    }));
+
+  const bySlug = new Map<string, { slug: string; date: string; modified: string }>();
+  for (const p of jsonPosts) bySlug.set(p.slug, p);
+  for (const p of dbPosts) bySlug.set(p.slug, p); // DB wins
+
+  const blogUrls = Array.from(bySlug.values()).map((post) => ({
     url: `${baseUrl}/story/blog/${post.slug}`,
     lastModified: new Date(post.modified || post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
 
-  return [...staticPages, ...blogPosts];
+  return [...staticPages, ...blogUrls];
 }
 

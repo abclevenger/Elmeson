@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Calendar, ArrowRight, Clock, Search } from "lucide-react";
 
 interface BlogPost {
-  id: number;
+  id: string | number;
   title: string;
   excerpt: string;
   date: string;

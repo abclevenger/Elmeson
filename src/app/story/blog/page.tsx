@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schema";
 import { getFeaturedImage, calculateReadingTime } from "@/lib/blog-utils";
 import BlogListingClient from "@/components/blog/BlogListingClient";
+import { supabase } from "@/lib/supabase";
 import blogPostsData from "@/data/blog-posts.json";
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ function getExcerpt(content: string, maxLength: number = 160): string {
 }
 
 // Helper function to format date
-function formatDate(dateString: string): string {
+function formatDate(dateString: string | Date): string {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -47,28 +48,88 @@ function formatDate(dateString: string): string {
   });
 }
 
-// Format all blog posts for display
-const BLOG_POSTS = blogPostsData
-  .filter(post => post.slug && post.postStatus === 'publish') // Only include published posts with slugs
-  .map(post => {
-    const featuredImage = getFeaturedImage(post);
-    const readingTime = calculateReadingTime(post.content);
+async function getBlogPosts() {
+  const normalize = (rows: any[]) =>
+    rows.map((post: any) => {
+      const featuredImage = post.featured_image || getFeaturedImage(post);
+      const readingTime = calculateReadingTime(post.content);
 
-    return {
-      id: post.id,
-      title: post.title,
-      excerpt: post.excerpt || getExcerpt(post.content),
-      date: formatDate(post.date),
-      slug: `/story/blog/${post.slug}`,
-      image: featuredImage || "/images/hero.jpg",
-      rawDate: post.date,
-      readingTime,
-      rawSlug: post.slug,
-    };
-  })
-  .sort((a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime());
+      return {
+        id: String(post.id),
+        title: post.title,
+        excerpt: post.excerpt || getExcerpt(post.content),
+        date: formatDate(post.date),
+        slug: `/story/blog/${post.slug}`,
+        image: featuredImage || "/images/hero.jpg",
+        rawDate: post.date,
+        readingTime,
+        rawSlug: post.slug,
+      };
+    });
 
-export default function BlogPage() {
+  try {
+    const { data: dbPosts, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('post_status', 'publish')
+      .order('date', { ascending: false });
+
+    const dbNormalized = !error && dbPosts ? normalize(dbPosts) : [];
+    const jsonNormalized = blogPostsData
+      .filter((post) => post.slug && post.postStatus === "publish")
+      .map((post) => {
+        const featuredImage = getFeaturedImage(post);
+        const readingTime = calculateReadingTime(post.content);
+
+        return {
+          id: post.id.toString(),
+          title: post.title,
+          excerpt: post.excerpt || getExcerpt(post.content),
+          date: formatDate(post.date),
+          slug: `/story/blog/${post.slug}`,
+          image: featuredImage || "/images/hero.jpg",
+          rawDate: post.date,
+          readingTime,
+          rawSlug: post.slug,
+        };
+      });
+
+    // Merge: DB wins on slug collisions (e.g., if you migrate an old post)
+    const bySlug = new Map<string, (typeof dbNormalized)[number]>();
+    for (const p of jsonNormalized) bySlug.set(p.rawSlug, p);
+    for (const p of dbNormalized) bySlug.set(p.rawSlug, p);
+
+    return Array.from(bySlug.values()).sort(
+      (a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime()
+    );
+  } catch (error) {
+    console.error("DB fetch failed, falling back to JSON:", error);
+  }
+
+  // Fallback to JSON
+  return blogPostsData
+    .filter(post => post.slug && post.postStatus === 'publish')
+    .map(post => {
+      const featuredImage = getFeaturedImage(post);
+      const readingTime = calculateReadingTime(post.content);
+
+      return {
+        id: post.id.toString(),
+        title: post.title,
+        excerpt: post.excerpt || getExcerpt(post.content),
+        date: formatDate(post.date),
+        slug: `/story/blog/${post.slug}`,
+        image: featuredImage || "/images/hero.jpg",
+        rawDate: post.date,
+        readingTime,
+        rawSlug: post.slug,
+      };
+    })
+    .sort((a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime());
+}
+
+export default async function BlogPage() {
+  const BLOG_POSTS = await getBlogPosts();
   return (
     <>
       <BreadcrumbSchema items={[
