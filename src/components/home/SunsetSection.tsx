@@ -1,31 +1,35 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/common/ScrollReveal";
 
 export default function SunsetSection() {
     return (
-        <section className="py-16 md:py-24 bg-white text-gray-800 relative overflow-hidden" aria-label="Sunset Celebration">
-            <div className="oval-section">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-12 md:mb-16">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-800 font-serif mb-2">
-                            Sunset
-                        </h2>
-                        <h3 className="text-lg md:text-xl lg:text-2xl font-serif text-gray-800 uppercase tracking-wide mb-6">
-                            CELEBRATION
-                        </h3>
-                        <p className="text-base md:text-lg text-gray-700 font-serif max-w-2xl mx-auto">
-                            Experience the famous Mallory Square Sunset Celebration. Join us before, during, and after the celebration for authentic Cuban tapas, entrees, and cocktails. Perfect for pre- and post-party atmosphere with live music and stunning sunset views.
-                        </p>
-                    </div>
-                    <div className="text-center">
-                        <Link
-                            href="/sunset"
-                            className="inline-block bg-gray-200 hover:bg-primary hover:text-white text-gray-900 font-semibold py-3 px-8 min-h-[48px] transition-all duration-300 uppercase tracking-wider text-sm sm:text-base border border-gray-300 hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-4"
-                            aria-label="Learn more about the sunset celebration"
-                        >
-                            LEARN MORE
-                        </Link>
-                    </div>
-                </div>
+        <section className="section-supporting bg-gradient-to-b from-white via-orange-50/30 to-white text-gray-800 relative overflow-hidden" aria-label="Sunset Celebration">
+            {/* Subtle warm gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent pointer-events-none" aria-hidden="true" />
+            
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <ScrollReveal className="text-center">
+                    {/* Script accent */}
+                    <span className="script-accent block mb-3">A Key West Tradition</span>
+                    
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl text-secondary font-serif mb-4">
+                        Sunset Celebration
+                    </h2>
+                    
+                    <div className="accent-bar-center" aria-hidden="true" />
+                    
+                    <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto mt-6 mb-8">
+                        Experience the famous Mallory Square Sunset Celebration. Join us for authentic Cuban tapas, signature cocktails, and live music as the sun paints the sky in shades of gold.
+                    </p>
+                    
+                    <Link
+                        href="/sunset"
+                        className="link-underline text-secondary hover:text-primary font-semibold uppercase tracking-wider text-sm transition-colors duration-300"
+                        aria-label="Learn more about the sunset celebration"
+                    >
+                        Plan Your Evening
+                    </Link>
+                </ScrollReveal>
             </div>
         </section>
     );

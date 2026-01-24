@@ -1,48 +1,50 @@
 import Image from "next/image";
 import Link from "next/link";
+import ScrollReveal from "@/components/common/ScrollReveal";
 
 export default function PatioBar() {
     return (
-        <section className="py-16 md:py-24 bg-white text-gray-800 overflow-hidden" aria-label="Our Patio Bar">
+        <section className="section-supporting bg-white text-gray-800 overflow-hidden" aria-label="Our Patio Bar">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-16">
                     {/* Image Content */}
-                    <div className="flex-1 relative h-[300px] sm:h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl order-1 md:order-1">
+                    <ScrollReveal className="flex-1 relative h-[280px] sm:h-[350px] w-full rounded-2xl overflow-hidden shadow-xl order-1 md:order-1 image-zoom">
                         <Image
                             src="/images/2017/10/el-meson-de-pepe-outdoor-seating-768x452.jpg"
                             alt="Patio Bar at El Meson de Pepe showing live salsa music and cocktails"
                             fill
-                            className="object-cover hover:scale-105 transition-transform duration-700"
+                            className="object-cover"
                             sizes="(max-width: 768px) 100vw, 50vw"
                             loading="lazy"
                             quality={85}
                         />
                         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl" aria-hidden="true" />
-                    </div>
+                    </ScrollReveal>
 
                     {/* Text Content */}
-                    <div className="flex-1 space-y-6 md:space-y-8 order-2 md:order-2">
+                    <ScrollReveal delay={150} className="flex-1 space-y-4 md:space-y-5 order-2 md:order-2">
+                        <span className="script-accent block">Experience the Moment</span>
+                        
                         <div className="space-y-2">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-800 font-serif">
-                                Our Patio
+                            <h2 className="text-2xl md:text-3xl lg:text-4xl text-secondary font-serif leading-tight">
+                                The Patio Bar
                             </h2>
-                            <h3 className="text-lg md:text-xl lg:text-2xl font-serif text-gray-800 uppercase tracking-wide">
-                                BAR
-                            </h3>
+                            <div className="accent-bar" aria-hidden="true" />
                         </div>
-                        <p className="text-base md:text-lg text-gray-700 leading-relaxed font-serif">
-                            Enjoy refreshing cocktails, live salsa music, and the vibrant atmosphere of Mallory Square. Our patio bar offers the perfect setting to unwind with a mojito or caipirinha while taking in the Key West sunset.
+                        
+                        <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+                            Enjoy refreshing cocktails, live salsa music, and the vibrant atmosphere of Mallory Square. Our patio bar offers the perfect setting to unwind with a mojito while taking in the Key West sunset.
                         </p>
-                        <div className="pt-4 md:pt-6">
+                        <div className="pt-2 md:pt-4">
                             <Link
-                                href="/sunset"
-                                className="inline-block bg-gray-200 hover:bg-primary hover:text-white text-gray-900 font-semibold py-3 px-8 min-h-[48px] transition-all duration-300 uppercase tracking-wider text-sm sm:text-base border border-gray-300 hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-4"
+                                href="/patio"
+                                className="link-underline text-secondary hover:text-primary font-semibold uppercase tracking-wider text-sm transition-colors duration-300"
                                 aria-label="Learn more about our patio bar"
                             >
-                                LEARN MORE
+                                Discover the Patio
                             </Link>
                         </div>
-                    </div>
+                    </ScrollReveal>
                 </div>
             </div>
         </section>

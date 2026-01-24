@@ -267,3 +267,158 @@ nav[role="navigation"] button.hover\:text-primary:hover {
     outline-offset: 4px;
   }
 }
+
+/* ============================================
+   DESIGN SYSTEM: Section Rhythm & Visual Signatures
+   ============================================ */
+
+/* Section rhythm - anchor sections get more breathing room */
+.section-anchor {
+  padding: 5rem 0;
+}
+
+@media (min-width: 768px) {
+  .section-anchor {
+    padding: 7rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-anchor {
+    padding: 8rem 0;
+  }
+}
+
+/* Section rhythm - supporting sections are tighter */
+.section-supporting {
+  padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+  .section-supporting {
+    padding: 4rem 0;
+  }
+}
+
+/* Decorative accent bar - used beneath headings */
+.accent-bar {
+  width: 4rem;
+  height: 3px;
+  background: var(--primary);
+  margin: 1rem 0;
+  border-radius: 2px;
+}
+
+.accent-bar-center {
+  width: 4rem;
+  height: 3px;
+  background: var(--primary);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+/* Script accent treatment for brand phrases */
+.script-accent {
+  font-family: var(--font-script);
+  color: var(--primary);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+/* Enhanced link underline animation */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Scroll-triggered fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Initial state for scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.animate-on-scroll.is-visible {
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+/* Stagger delays for sequential reveals */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* Card hover enhancement */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* Image zoom on hover */
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition: transform 0.7s ease;
+}
+
+.image-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Subtle border glow effect */
+.border-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.border-glow:hover {
+  box-shadow: 0 0 0 1px var(--primary), 0 4px 12px rgba(217, 93, 30, 0.15);
+  border-color: var(--primary);
+}
