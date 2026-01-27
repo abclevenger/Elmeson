@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { BreadcrumbSchema } from "@/lib/schema";
 import { Martini, Beer, Citrus } from "lucide-react";
-import GiftCard from "@/components/common/GiftCard";
 
 export const metadata: Metadata = {
   title: "Patio Bar - Key West Cocktails & Live Music | El Meson de Pepe",
@@ -213,8 +212,6 @@ export default function PatioBarPage() {
             </div>
           </div>
         </section>
-
-        <GiftCard />
       </div>
     </>
   );

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MenuSchema, BreadcrumbSchema } from "@/lib/schema";
 import menuData from '@/data/menu.json';
 import { Utensils, ChefHat, Soup, Coffee, IceCream, Baby, Star } from "lucide-react";
-import GiftCard from "@/components/common/GiftCard";
 
 export const metadata: Metadata = {
     title: "Menu - Authentic Cuban Cuisine",
@@ -180,8 +179,6 @@ export default function MenuPage() {
                         </div>
                     </div>
                 </section>
-
-                <GiftCard />
             </div>
         </>
     );

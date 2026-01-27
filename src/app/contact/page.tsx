@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schema";
 import Script from "next/script";
-import GiftCard from "@/components/common/GiftCard";
 
 export const metadata: Metadata = {
     title: "Contact Us - Visit El Meson de Pepe in Key West",
@@ -77,10 +76,8 @@ export default function ContactPage() {
                         </div>
                     </div>
                 </div>
-
-                <GiftCard />
             </div>
-            <Script src="https://link.ymbs.pro/js/form_embed.js" strategy="lazyOnload" />
+            <Script src="https://link.ymbs.pro/js/form_embed.js" strategy="afterInteractive" />
         </>
     );
 }

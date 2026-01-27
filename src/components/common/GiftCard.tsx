@@ -28,7 +28,7 @@ export default function GiftCard() {
 
             <Script
                 src="https://storage.googleapis.com/leadgen-payment-products-preview-nuxt-assets/js/iframe-resizer/gc-embed.parent.js"
-                strategy="lazyOnload"
+                strategy="afterInteractive"
             />
         </section>
     );

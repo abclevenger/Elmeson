@@ -5,7 +5,6 @@ import MenuPreview from "@/components/home/MenuPreview";
 import PatioBar from "@/components/home/PatioBar";
 import SunsetSection from "@/components/home/SunsetSection";
 import PrivatePartiesSection from "@/components/home/PrivatePartiesSection";
-import GiftCard from "@/components/common/GiftCard";
 import { RestaurantSchema, BreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -51,7 +50,6 @@ export default function Home() {
       <PatioBar />
       <SunsetSection />
       <PrivatePartiesSection />
-      <GiftCard />
     </>
   );
 }
