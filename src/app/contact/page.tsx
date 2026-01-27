@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { BreadcrumbSchema } from "@/lib/schema";
-import ContactForm from "@/components/contact/ContactForm";
+import Script from "next/script";
+import GiftCard from "@/components/common/GiftCard";
 
 export const metadata: Metadata = {
     title: "Contact Us - Visit El Meson de Pepe in Key West",
@@ -54,51 +54,33 @@ export default function ContactPage() {
 
                 <div className="pb-20 px-4 pt-16">
                     <div className="max-w-4xl mx-auto">
-
-                        <div className="grid md:grid-cols-2 gap-12">
-
-                            {/* Info */}
-                            <div className="space-y-8 bg-gray-50 p-8 rounded-xl border border-gray-200">
-                                <div className="flex items-start space-x-4">
-                                    <MapPin className="text-primary mt-1 w-6 h-6" aria-hidden="true" />
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-2">Location</h2>
-                                        <address className="text-gray-600 not-italic">410 Wall Street<br />Key West, FL 33040</address>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center space-x-4">
-                                    <Phone className="text-primary w-6 h-6" aria-hidden="true" />
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-2">Phone</h2>
-                                        <p className="text-gray-600">305-295-2620</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center space-x-4">
-                                    <Mail className="text-primary w-6 h-6" aria-hidden="true" />
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-2">Email</h2>
-                                        <p className="text-gray-600">info@elmesondepepe.com</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start space-x-4">
-                                    <Clock className="text-primary mt-1 w-6 h-6" aria-hidden="true" />
-                                    <div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-2">Hours</h2>
-                                        <p className="text-gray-600">Open Daily 11:00 AM - 10:00 PM</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Form */}
-                            <ContactForm />
-
+                        {/* Form */}
+                        <div className="bg-gray-50 p-8 rounded-xl border border-gray-200">
+                            <iframe
+                                src="https://link.ymbs.pro/widget/form/wtSXA42g1zdkkMjuTT92"
+                                style={{ width: '100%', height: '100%', border: 'none', borderRadius: '3px' }}
+                                id="inline-wtSXA42g1zdkkMjuTT92"
+                                data-layout='{"id":"INLINE"}'
+                                data-trigger-type="alwaysShow"
+                                data-trigger-value=""
+                                data-activation-type="alwaysActivated"
+                                data-activation-value=""
+                                data-deactivation-type="neverDeactivate"
+                                data-deactivation-value=""
+                                data-form-name="Priority Seating"
+                                data-height="1149"
+                                data-layout-iframe-id="inline-wtSXA42g1zdkkMjuTT92"
+                                data-form-id="wtSXA42g1zdkkMjuTT92"
+                                title="Priority Seating"
+                                className="w-full min-h-[600px]"
+                            />
                         </div>
                     </div>
                 </div>
+
+                <GiftCard />
             </div>
+            <Script src="https://link.ymbs.pro/js/form_embed.js" strategy="lazyOnload" />
         </>
     );
 }
