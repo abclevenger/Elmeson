@@ -70,6 +70,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ContactBar from "@/components/layout/ContactBar";
 import CookieBanner from "@/components/common/CookieBanner";
+import AnniversaryBanner from "@/components/common/AnniversaryBanner";
 import Providers from "@/components/providers/Providers";
 import { OrganizationSchema } from "@/lib/schema";
 
@@ -99,6 +100,7 @@ export default function RootLayout({
           <Providers>
             <header role="banner">
               <Navbar />
+              <AnniversaryBanner />
             </header>
             <main id="main-content" aria-label="Main content" suppressHydrationWarning>{children}</main>
             <Footer />

@@ -50,6 +50,9 @@ export default function Hero() {
 
         <div className="hero-reveal hero-reveal-delay-3 flex flex-col items-center gap-4">
           <div className="h-px w-16 bg-[var(--gold)]" aria-hidden="true" />
+          <span className="inline-block px-4 py-1.5 rounded-full border-2 border-[var(--gold)] text-[var(--gold)] text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] bg-[var(--charcoal)]/30 backdrop-blur-sm">
+            {t.hero.thirtyYears}
+          </span>
           <p className="text-[var(--warm-200)]/95 text-sm sm:text-base uppercase tracking-[0.2em]">
             {t.hero.subtitle}
           </p>

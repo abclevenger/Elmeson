@@ -43,6 +43,7 @@ export default function Footer() {
                         <div>
                             <h3 className="text-3xl font-serif text-[var(--warm-100)] tracking-wider uppercase mb-2">El Mesón de Pepe</h3>
                             <p className="text-[var(--gold)] text-xs font-bold tracking-[0.2em] uppercase">{t.footer.tagline}</p>
+                            <p className="text-[var(--warm-500)] text-xs mt-1 italic">{t.footer.thirtyYears}</p>
                         </div>
                         <p className="text-[var(--warm-300)] text-sm leading-relaxed max-w-sm font-light">
                             {t.footer.description}
