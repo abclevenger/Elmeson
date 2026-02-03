@@ -11,7 +11,7 @@ export interface TimelineEntry {
 }
 
 interface HeritageTimelineProps {
-  entries: TimelineEntry[];
+  entries: readonly TimelineEntry[];
   className?: string;
 }
 

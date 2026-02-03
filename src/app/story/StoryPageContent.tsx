@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
-import HeritageTimeline, { type TimelineEntry } from "@/components/about/HeritageTimeline";
+import HeritageTimeline from "@/components/about/HeritageTimeline";
 
 export default function StoryPageContent() {
   const { t } = useLanguage();
@@ -69,7 +69,7 @@ export default function StoryPageContent() {
             <h2 id="restaurant-timeline-heading" className="text-2xl md:text-3xl font-serif font-light text-[var(--charcoal)] text-center mb-10">
               {t.story.restaurantTimelineTitle}
             </h2>
-            <HeritageTimeline entries={t.story.restaurantTimeline as TimelineEntry[]} />
+            <HeritageTimeline entries={t.story.restaurantTimeline} />
           </section>
 
           <div className="mt-14 flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
