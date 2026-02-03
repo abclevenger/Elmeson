@@ -132,14 +132,18 @@ export default function HeritagePage() {
                 >
                   <div className={`grid grid-cols-1 md:grid-cols-12 gap-0 ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
                     <div className={`relative aspect-[4/5] md:aspect-[4/3] md:col-span-5 overflow-hidden ${index % 2 === 1 ? "md:order-2" : ""}`}>
-                      <Image
-                        src={p.image}
-                        alt={p.imageAlt}
-                        fill
-                        className={p.objectFit === "contain" ? "object-contain object-center" : "object-cover"}
-                        style={p.objectPosition ? { objectPosition: p.objectPosition } : undefined}
-                        sizes="(max-width: 768px) 100vw, 42vw"
-                      />
+                      {p.image ? (
+                        <Image
+                          src={p.image}
+                          alt={p.imageAlt ?? p.name}
+                          fill
+                          className={p.objectFit === "contain" ? "object-contain object-center" : "object-cover"}
+                          style={p.objectPosition ? { objectPosition: p.objectPosition } : undefined}
+                          sizes="(max-width: 768px) 100vw, 42vw"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-[var(--warm-200)]" aria-hidden="true" />
+                      )}
                     </div>
                     <div className={`p-8 md:p-10 md:col-span-7 flex flex-col justify-center ${index % 2 === 1 ? "md:order-1" : ""}`}>
                       <p className="text-xs uppercase tracking-wider text-[var(--gold)] mb-1">
