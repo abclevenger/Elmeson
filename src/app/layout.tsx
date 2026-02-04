@@ -96,6 +96,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <OrganizationSchema />
+        {/* suppressHydrationWarning: Cursor's embedded browser injects data-cursor-ref into the DOM, causing attribute mismatch. Not an issue in production or normal browsers. */}
         <div suppressHydrationWarning>
           <Providers>
             <header role="banner">

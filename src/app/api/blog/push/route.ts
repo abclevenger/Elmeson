@@ -88,12 +88,12 @@ export async function POST(req: NextRequest) {
             });
         }
 
-    } catch (error: any) {
-        console.error('Search Atlas Push Error:', error);
-        return NextResponse.json({
-            error: 'Internal Server Error',
-            details: error.message
-        }, { status: 500 });
+    } catch (error: unknown) {
+        console.error("Search Atlas Push Error:", error);
+        return NextResponse.json(
+            { error: "Internal Server Error" },
+            { status: 500 }
+        );
     }
 }
 

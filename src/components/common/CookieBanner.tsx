@@ -36,6 +36,7 @@ export default function CookieBanner() {
     >
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex-1 text-center sm:text-left">
+          <h2 id="cookie-banner-title" className="sr-only">Cookie notice</h2>
           <p id="cookie-banner-description" className="text-sm sm:text-base text-gray-200">
             We use cookies to give you the best experience. By using our site, you agree to our cookie policy.
           </p>

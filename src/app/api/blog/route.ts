@@ -31,11 +31,11 @@ export async function POST(req: NextRequest) {
         }
 
         return NextResponse.json(data, { status: 201 });
-    } catch (error: any) {
-        if (error.message?.includes('redirect')) {
+    } catch (error: unknown) {
+        if (error instanceof Error && error.message?.includes("redirect")) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
-        return NextResponse.json({ message: error.message }, { status: 400 });
+        return NextResponse.json({ message: "Bad request" }, { status: 400 });
     }
 }
 
@@ -82,11 +82,11 @@ export async function PUT(req: NextRequest) {
         }
 
         return NextResponse.json(data);
-    } catch (error: any) {
-        if (error.message?.includes('redirect')) {
+    } catch (error: unknown) {
+        if (error instanceof Error && error.message?.includes("redirect")) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
-        return NextResponse.json({ message: error.message }, { status: 400 });
+        return NextResponse.json({ message: "Bad request" }, { status: 400 });
     }
 }
 
@@ -110,10 +110,10 @@ export async function DELETE(req: NextRequest) {
         }
 
         return NextResponse.json({ message: "Post deleted" });
-    } catch (error: any) {
-        if (error.message?.includes('redirect')) {
+    } catch (error: unknown) {
+        if (error instanceof Error && error.message?.includes("redirect")) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
-        return NextResponse.json({ message: error.message }, { status: 400 });
+        return NextResponse.json({ message: "Bad request" }, { status: 400 });
     }
 }
