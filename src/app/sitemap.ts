@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
+import { createClient } from '@supabase/supabase-js';
+import type { Database } from '@/lib/database.types';
 import blogPostsData from '@/data/blog-posts.json';
-import { supabase } from '@/lib/supabase';
 
 // Keep sitemap fresh for SEO without requiring a redeploy.
 export const revalidate = 3600; // 1 hour
@@ -11,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Get current date for lastModified
   const currentDate = new Date();
 
-  const staticPages = [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: currentDate,
@@ -128,10 +129,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  const jsonPosts = blogPostsData
+    .filter((p) => p.slug && p.postStatus === 'publish')
+    .map((post) => ({
+      slug: post.slug,
+      date: String(post.date),
+      modified: String(post.modified || post.date),
+    }));
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    console.warn(
+      'Supabase env vars missing during sitemap generation (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY) → returning static fallback sitemap'
+    );
+    const blogUrls = jsonPosts.map((post) => ({
+      url: `${baseUrl}/story/blog/${post.slug}`,
+      lastModified: new Date(post.modified || post.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+    return [...staticPages, ...blogUrls];
+  }
+
   // Pull published posts from Supabase (source of truth in production).
   // Keep JSON as a safety net (and for local dev) while avoiding duplicates.
   let dbPosts: Array<{ slug: string; date: string; modified: string }> = [];
   try {
+    const supabase = createClient<Database>(supabaseUrl, supabaseServiceRoleKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
     const { data, error } = await supabase
       .from('posts')
       .select('slug,date,modified,post_status')
@@ -139,7 +167,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .order('date', { ascending: false });
 
     if (!error && data) {
-      dbPosts = (data as any[]).map((p) => ({
+      dbPosts = (data as { slug: string; date: string; modified?: string }[]).map((p) => ({
         slug: p.slug,
         date: p.date,
         modified: p.modified ?? p.date,
@@ -149,19 +177,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // ignore - we'll fall back to JSON below
   }
 
-  const jsonPosts = blogPostsData
-    .filter((p) => p.slug && p.postStatus === 'publish')
-    .map((post) => ({
-      slug: post.slug,
-      date: String(post.date),
-      modified: String(post.modified || post.date),
-    }));
-
   const bySlug = new Map<string, { slug: string; date: string; modified: string }>();
   for (const p of jsonPosts) bySlug.set(p.slug, p);
   for (const p of dbPosts) bySlug.set(p.slug, p); // DB wins
 
-  const blogUrls = Array.from(bySlug.values()).map((post) => ({
+  const blogUrls: MetadataRoute.Sitemap = Array.from(bySlug.values()).map((post) => ({
     url: `${baseUrl}/story/blog/${post.slug}`,
     lastModified: new Date(post.modified || post.date),
     changeFrequency: 'monthly' as const,

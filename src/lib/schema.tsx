@@ -242,7 +242,7 @@ export function ArticleSchema({
 }
 
 // FAQPage Schema for LLM/snippet visibility
-export function FAQSchema({ items }: { items: Array<{ q: string; a: string }> }) {
+export function FAQSchema({ items }: { items: readonly { q: string; a: string }[] }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

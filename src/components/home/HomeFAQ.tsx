@@ -6,8 +6,8 @@ import ScrollReveal from "@/components/common/ScrollReveal";
 export default function HomeFAQ() {
   const { t } = useLanguage();
   const faq = t.homeFaq ?? [];
-
-  if (!Array.isArray(faq) || faq.length === 0) return null;
+  const faqList = Array.isArray(faq) ? faq : [];
+  if (faqList.length === 0) return null;
 
   return (
     <section
@@ -25,7 +25,7 @@ export default function HomeFAQ() {
           <div className="h-px w-14 bg-[var(--gold)] mx-auto mt-3" />
         </ScrollReveal>
         <ul className="space-y-8">
-          {faq.map((item: { q: string; a: string }, idx: number) => (
+          {faqList.map((item: { q: string; a: string }, idx: number) => (
             <ScrollReveal key={idx} delay={idx * 50}>
               <li>
                 <h3 className="text-lg font-semibold text-[var(--charcoal)] mb-2">
