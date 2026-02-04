@@ -121,8 +121,8 @@ export default function PatioBarPage() {
               </div>
               <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-2 border-[var(--gold)]/30 shadow-lg">
                 <Image
-                  src="/images/bar-cuban-cocktails.png"
-                  alt="Cuban cocktails at the Patio Bar — Mallory Square"
+                  src="/images/patio-cocktail-specialty.png"
+                  alt="Signature cocktail — hand-crafted Cuban drinks at the Patio Bar, Mallory Square"
                   fill
                   className="object-cover"
                   sizes="144px"

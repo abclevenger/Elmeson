@@ -72,15 +72,6 @@ export default function PrivatePartiesPage() {
                                     Fill out our Private Events Survey
                                 </Link>
                             </p>
-                            <div className="relative aspect-[4/5] w-full max-w-md rounded-lg overflow-hidden border border-gray-200 mt-8 shadow-lg">
-                                <Image
-                                    src="/images/wedding-couple-el-meson.png"
-                                    alt="Wedding couple at El Mesón de Pepe — Cuban cuisine and celebrations in Mallory Square"
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 1024px) 100vw, 448px"
-                                />
-                            </div>
                         </div>
                         <div className="bg-gray-50 p-10 rounded-3xl border border-gray-100 shadow-xl text-center relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
@@ -101,6 +92,17 @@ export default function PrivatePartiesPage() {
                                     Contact us to discuss your vision and receive a custom quote for your special occasion.
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                    <div className="flex justify-center mt-12 lg:mt-16">
+                        <div className="relative aspect-[4/5] w-full max-w-md rounded-lg overflow-hidden border border-gray-200 shadow-lg">
+                            <Image
+                                src="/images/wedding-couple-el-meson.png"
+                                alt="Wedding couple at El Mesón de Pepe — Cuban cuisine and celebrations in Mallory Square"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, 448px"
+                            />
                         </div>
                     </div>
                 </section>

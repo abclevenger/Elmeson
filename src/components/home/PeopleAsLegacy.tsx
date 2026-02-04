@@ -1,17 +1,36 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+const ROTATE_INTERVAL_MS = 5000;
+
 const LEGACY_IDS = [
-  { id: "pepeDiaz" as const, image: "/images/jose-m-diaz-portrait.png" },
-  { id: "diazes" as const, image: "/images/diaz-family.png", objectPosition: "55% 50%" as const },
+  { id: "pepeDiaz" as const, image: "/images/jose-m-diaz-portrait.png", moreInfoHref: "/about/jose-m-diaz" },
+  {
+    id: "diazes" as const,
+    images: ["/images/diaz-family.png", "/images/diaz-family-2.png"],
+    objectPosition: "50% 50%" as const,
+    widerImage: true,
+  },
 ];
 
 export default function PeopleAsLegacy() {
   const { t } = useLanguage();
+  const [diazImageIndex, setDiazImageIndex] = useState(0);
+
+  useEffect(() => {
+    const diazItem = LEGACY_IDS.find((i) => "images" in i && i.images && i.images.length > 1);
+    if (!diazItem || !("images" in diazItem) || !diazItem.images) return;
+    const interval = setInterval(() => {
+      setDiazImageIndex((prev) => (prev + 1) % diazItem.images!.length);
+    }, ROTATE_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       className="section-anchor bg-[var(--warm-100)] text-[var(--charcoal)] overflow-hidden border-t border-[var(--border)]"
@@ -40,15 +59,58 @@ export default function PeopleAsLegacy() {
                   <div
                     className={`relative lg:col-span-5 ${index % 2 === 1 ? "lg:order-2" : ""}`}
                   >
-                    {item.image ? (
-                      <div className="relative aspect-[4/5] max-w-md mx-auto lg:max-w-none overflow-hidden border border-[var(--border)]">
+                    {"images" in item && item.images && item.images.length > 0 ? (
+                      <div
+                        className={`relative mx-auto overflow-hidden border border-[var(--border)] ${
+                          "widerImage" in item && item.widerImage
+                            ? "aspect-[4/3] max-w-xl lg:max-w-none w-full"
+                            : "aspect-[4/5] max-w-md lg:max-w-none"
+                        }`}
+                        aria-live="polite"
+                        aria-label={f.imageAlt}
+                      >
+                        {item.images.map((src, i) => {
+                          const isVisible = item.id === "diazes" && i === diazImageIndex;
+                          return (
+                          <div
+                            key={src}
+                            className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                            style={{ opacity: isVisible ? 1 : 0 }}
+                            aria-hidden={!isVisible}
+                          >
+                            <Image
+                              src={src}
+                              alt={isVisible ? f.imageAlt : ""}
+                              fill
+                              className="object-cover"
+                              style={"objectPosition" in item ? { objectPosition: item.objectPosition } : undefined}
+                              sizes={"widerImage" in item && item.widerImage ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 1024px) 100vw, 42vw"}
+                              loading={i === 0 ? "lazy" : "lazy"}
+                              quality={88}
+                            />
+                          </div>
+                          );
+                        })}
+                        <div
+                          className="absolute inset-0 ring-1 ring-inset ring-[var(--charcoal)]/5 pointer-events-none"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    ) : item.image ? (
+                      <div
+                        className={`relative mx-auto overflow-hidden border border-[var(--border)] ${
+                          "widerImage" in item && item.widerImage
+                            ? "aspect-[4/3] max-w-xl lg:max-w-none w-full"
+                            : "aspect-[4/5] max-w-md lg:max-w-none"
+                        }`}
+                      >
                         <Image
                           src={item.image}
                           alt={f.imageAlt}
                           fill
                           className="object-cover"
                           style={"objectPosition" in item ? { objectPosition: item.objectPosition } : undefined}
-                          sizes="(max-width: 1024px) 100vw, 42vw"
+                          sizes={"widerImage" in item && item.widerImage ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 1024px) 100vw, 42vw"}
                           loading="lazy"
                           quality={88}
                         />
@@ -95,6 +157,17 @@ export default function PeopleAsLegacy() {
                     <p className="text-[var(--warm-700)] text-base md:text-lg leading-relaxed font-light">
                       {f.impact}
                     </p>
+                    {"moreInfoHref" in item && item.moreInfoHref && (
+                      <div className={`mt-6 ${index % 2 === 1 ? "lg:text-right" : ""}`}>
+                        <Link
+                          href={item.moreInfoHref}
+                          className="inline-flex items-center gap-2 text-[var(--charcoal)] font-medium text-sm uppercase tracking-wider border-b-2 border-[var(--gold)] pb-0.5 hover:text-[var(--gold)] transition-colors"
+                          aria-label={t.legacy.moreInfoAria}
+                        >
+                          {t.legacy.moreInfo}
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </article>
               </ScrollReveal>

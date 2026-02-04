@@ -15,10 +15,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "/featured" },
 };
 
-/**
- * Placeholder episode-details page.
- * TODO: Add IMDb (or Travel Channel) link when available; optionally embed or link to episode clip.
- */
+const IMDB_EPISODE_URL = "https://www.imdb.com/title/tt13410186/";
+
+const WHERE_TO_WATCH = {
+  subscription: [
+    { name: "Max (HBO Max)", url: "https://www.max.com/" },
+    { name: "Philo", url: "https://www.philo.com/" },
+    { name: "YouTube TV", url: "https://tv.youtube.com/" },
+  ],
+  buyRent: [
+    { name: "Apple TV", url: "https://tv.apple.com/", note: "From $22.99/season" },
+    { name: "Amazon Prime Video", url: "https://www.primevideo.com/", note: "From $24.99/season" },
+    { name: "Google Play", url: "https://play.google.com/store/movies", note: "Buy/rent" },
+  ],
+  free: [
+    { name: "Spectrum On Demand", url: "https://www.spectrum.net/", note: "Free with Spectrum" },
+    { name: "The Roku Channel", url: "https://therokuchannel.roku.com/", note: "Free" },
+  ],
+};
+
 export default function FeaturedPage() {
   return (
     <>
@@ -43,16 +58,93 @@ export default function FeaturedPage() {
                 Food Paradise (Travel Channel) — &ldquo;Meals Over Miami&rdquo; S14 E2, aired September 2, 2020
               </cite>
             </p>
-            <p className="mb-10">
-              <a
-                href="https://www.imdb.com/title/tt13410186/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline text-[var(--charcoal)] hover:text-[var(--gold)] font-medium text-sm uppercase tracking-wider"
-              >
-                Watch on IMDb — Meals Over Miami
-              </a>
-            </p>
+
+            {/* Where to Watch */}
+            <div id="where-to-watch" className="mb-12 p-6 md:p-8 bg-[var(--warm-100)] border border-[var(--border)] rounded-sm scroll-mt-24">
+              <h2 className="text-xl font-serif font-light text-[var(--charcoal)] mb-1">
+                Where to Watch
+              </h2>
+              <p className="text-sm text-[var(--warm-700)] mb-6">
+                Food Paradise: Meals Over Miami — Season 14, Episode 2
+              </p>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--gold)] mb-3">
+                    Subscription
+                  </h3>
+                  <ul className="space-y-2" role="list">
+                    {WHERE_TO_WATCH.subscription.map(({ name, url }) => (
+                      <li key={name}>
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[var(--charcoal)] hover:text-[var(--gold)] font-medium transition-colors"
+                        >
+                          {name}
+                        </a>
+                        <span className="text-[var(--warm-500)] text-sm ml-2">— Subscription</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--gold)] mb-3">
+                    Buy / Rent
+                  </h3>
+                  <ul className="space-y-2" role="list">
+                    {WHERE_TO_WATCH.buyRent.map(({ name, url, note }) => (
+                      <li key={name}>
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[var(--charcoal)] hover:text-[var(--gold)] font-medium transition-colors"
+                        >
+                          {name}
+                        </a>
+                        {note && (
+                          <span className="text-[var(--warm-500)] text-sm ml-2">— {note}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--gold)] mb-3">
+                    Free
+                  </h3>
+                  <ul className="space-y-2" role="list">
+                    {WHERE_TO_WATCH.free.map(({ name, url, note }) => (
+                      <li key={name}>
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[var(--charcoal)] hover:text-[var(--gold)] font-medium transition-colors"
+                        >
+                          {name}
+                        </a>
+                        {note && (
+                          <span className="text-[var(--warm-500)] text-sm ml-2">— {note}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <p className="mt-6 pt-6 border-t border-[var(--border)]">
+                <a
+                  href={IMDB_EPISODE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline text-[var(--charcoal)] hover:text-[var(--gold)] font-medium text-sm uppercase tracking-wider"
+                >
+                  View on IMDb — Seasons &amp; episodes
+                </a>
+              </p>
+            </div>
+
             <Link
               href="/"
               className="link-underline text-[var(--charcoal)] hover:text-[var(--gold)] font-medium text-sm uppercase tracking-wider"

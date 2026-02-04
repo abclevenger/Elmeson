@@ -57,7 +57,14 @@ export default function FeaturedEpisode({
                 {t.featured.citation}
               </cite>
             </p>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap gap-x-6 gap-y-1">
+              <Link
+                href="/featured#where-to-watch"
+                className="link-underline text-[var(--charcoal)] hover:text-[var(--gold)] font-medium text-sm uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-[var(--warm-100)] rounded-sm"
+                aria-label="Where to watch — Food Paradise Meals Over Miami"
+              >
+                Where to watch
+              </Link>
               <Link
                 href={ctaHref}
                 className="link-underline text-[var(--charcoal)] hover:text-[var(--gold)] font-medium text-sm uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-[var(--warm-100)] rounded-sm"
