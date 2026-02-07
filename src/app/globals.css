@@ -75,6 +75,7 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -99,7 +100,9 @@ body {
 }
 
 /* Global Heading Styles */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--font-serif);
 }
 
@@ -224,7 +227,7 @@ footer a {
 }
 
 .btn-primary:hover {
-  background: transparent !important;
+  background: var(--gold) !important;
   color: var(--charcoal) !important;
   border-color: var(--gold) !important;
   transform: translateY(-2px);
@@ -247,6 +250,7 @@ footer a {
   color: var(--charcoal);
   border-color: var(--gold);
 }
+
 .btn-primary.btn-waitlist:hover,
 .btn-waitlist:hover {
   background: black !important;
@@ -310,14 +314,18 @@ button[class*="hover:bg-primary"]:hover {
 /* Ensure consistent font sizing for all navbar menu items */
 nav[role="navigation"] button[aria-haspopup],
 nav[role="navigation"] a[href] {
-  font-size: 0.75rem !important; /* text-xs = 12px */
-  font-weight: 500 !important; /* font-medium */
+  font-size: 0.75rem !important;
+  /* text-xs = 12px */
+  font-weight: 500 !important;
+  /* font-medium */
 }
 
 nav[role="navigation"] button[aria-haspopup] span,
 nav[role="navigation"] a[href] span {
-  font-size: 0.75rem !important; /* text-xs = 12px */
-  font-weight: 500 !important; /* font-medium */
+  font-size: 0.75rem !important;
+  /* text-xs = 12px */
+  font-weight: 500 !important;
+  /* font-medium */
 }
 
 /* Ensure white text on transparent navbar */
@@ -331,7 +339,8 @@ nav[role="navigation"] span.text-white {
 /* Preserve hover effects - gray on transparent, orange on white background */
 nav[role="navigation"] a.hover\:text-gray-200:hover,
 nav[role="navigation"] button.hover\:text-gray-200:hover {
-  color: #e5e7eb !important; /* gray-200 for transparent navbar */
+  color: #e5e7eb !important;
+  /* gray-200 for transparent navbar */
 }
 
 nav[role="navigation"] a.hover\:text-primary:hover,
@@ -340,6 +349,7 @@ nav[role="navigation"] button.hover\:text-primary:hover {
 }
 
 @media (hover: none) and (pointer: coarse) {
+
   button:focus-visible,
   a:focus-visible,
   input:focus-visible {
@@ -431,6 +441,7 @@ nav[role="navigation"] button.hover\:text-primary:hover {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -441,6 +452,7 @@ nav[role="navigation"] button.hover\:text-primary:hover {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -465,21 +477,47 @@ nav[role="navigation"] button.hover\:text-primary:hover {
 }
 
 /* Stagger delays for sequential reveals */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+}
 
 /* Hero load animation */
 .hero-reveal {
   opacity: 0;
   animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-.hero-reveal-delay-1 { animation-delay: 0.12s; }
-.hero-reveal-delay-2 { animation-delay: 0.24s; }
-.hero-reveal-delay-3 { animation-delay: 0.36s; }
-.hero-reveal-delay-4 { animation-delay: 0.5s; }
-.hero-reveal-delay-5 { animation-delay: 0.65s; }
+
+.hero-reveal-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.hero-reveal-delay-2 {
+  animation-delay: 0.24s;
+}
+
+.hero-reveal-delay-3 {
+  animation-delay: 0.36s;
+}
+
+.hero-reveal-delay-4 {
+  animation-delay: 0.5s;
+}
+
+.hero-reveal-delay-5 {
+  animation-delay: 0.65s;
+}
 
 /* Card hover enhancement */
 .card-hover {
@@ -518,21 +556,33 @@ nav[role="navigation"] button.hover\:text-primary:hover {
 .featured-artifact {
   transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
+
 .featured-artifact:hover {
   border-color: rgba(201, 169, 98, 0.4);
   box-shadow: 0 12px 40px rgba(28, 27, 25, 0.12);
   transform: translateY(-4px);
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-reveal { animation: none; opacity: 1; }
-  .featured-artifact:hover { transform: none; }
-  .card-hover:hover { transform: none; }
+  .hero-reveal {
+    animation: none;
+    opacity: 1;
+  }
+
+  .featured-artifact:hover {
+    transform: none;
+  }
+
+  .card-hover:hover {
+    transform: none;
+  }
 }
 
 /* ============================================
    PRINT STYLES — Menu & general
    ============================================ */
 @media print {
+
   /* Hide nav, footer, contact bar, cookie banner */
   header,
   footer,

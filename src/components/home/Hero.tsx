@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDown, Sunset } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SunsetTime from "@/components/SunsetTime";
+import { WAITLIST_ENABLED } from "@/lib/config";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -89,13 +90,15 @@ export default function Hero() {
             >
               {t.hero.ctaCall}
             </a>
-            <Link
-              href="/priority-seating"
-              className="btn-primary btn-waitlist inline-flex min-h-[44px] items-center justify-center focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent"
-              aria-label={t.hero.waitlistCtaAria}
-            >
-              {t.hero.waitlistCta}
-            </Link>
+            {WAITLIST_ENABLED && (
+              <Link
+                href="/priority-seating"
+                className="btn-primary btn-waitlist inline-flex min-h-[44px] items-center justify-center focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent"
+                aria-label={t.hero.waitlistCtaAria}
+              >
+                {t.hero.waitlistCta}
+              </Link>
+            )}
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-1 justify-center">
             <Link

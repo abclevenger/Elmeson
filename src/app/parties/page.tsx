@@ -67,34 +67,42 @@ export default function PrivatePartiesPage() {
                             <div className="bg-secondary/5 border-l-4 border-secondary p-6 italic text-gray-700">
                                 &ldquo;Below are sample menus that should help you select the options most suited to your tastes. Please feel free to select options from any of the menus and we will provide a custom quote for your group.&rdquo;
                             </div>
-                            <p className="pt-4">
-                                <Link href="/parties/survey" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all shadow-md uppercase tracking-wider text-sm font-bold">
-                                    Fill out our Private Events Survey
-                                </Link>
-                            </p>
                         </div>
                         <div className="bg-gray-50 p-10 rounded-3xl border border-gray-100 shadow-xl text-center relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                            <h3 className="text-primary font-serif text-2xl mb-6 italic">Event Coordinator</h3>
+                            <h3 className="text-primary font-serif text-2xl mb-6 italic">Manager &amp; Events Coordinator</h3>
                             <div className="space-y-4 text-gray-700 relative z-10">
-                                <p className="font-bold text-2xl mb-1">Jose M. Diaz Jr.</p>
-                                <p className="text-secondary uppercase tracking-widest text-xs font-bold">General Manager / Event Coordinator</p>
+                                <p className="font-bold text-2xl mb-1">Sonny Diaz-Napoles</p>
+                                <p className="text-secondary uppercase tracking-widest text-xs font-bold">Manager / Events Coordinator</p>
                                 <div className="h-px w-16 bg-secondary/30 mx-auto my-6" />
                                 <div className="space-y-4">
                                     <a href="tel:305-295-2620" className="flex items-center justify-center gap-3 text-primary hover:text-secondary transition-colors font-semibold text-lg">
                                         <Phone className="w-5 h-5" /> 305-295-2620
                                     </a>
-                                    <a href="mailto:jose@elmesondepepe.com" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all shadow-md uppercase tracking-wider text-sm font-bold">
-                                        <Mail className="w-4 h-4" /> Email Jose
+                                    <a
+                                        href="mailto:info@elmesondepepe.com"
+                                        className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all shadow-md uppercase tracking-wider text-sm font-bold"
+                                    >
+                                        <Mail className="w-4 h-4" /> Email Sonny
                                     </a>
                                 </div>
                                 <p className="text-xs text-gray-500 mt-6 leading-relaxed">
-                                    Contact us to discuss your vision and receive a custom quote for your special occasion.
+                                    Contact us to discuss your vision and receive a custom quote for your special occasion, or{" "}
+                                    <Link href="/parties/survey" className="text-primary underline underline-offset-2 hover:text-secondary">
+                                        get started with our Private Events Survey
+                                    </Link>
+                                    .
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center mt-12 lg:mt-16">
+                    <div className="flex flex-col items-center mt-12 lg:mt-16 gap-6">
+                        <Link
+                            href="/parties/survey"
+                            className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all shadow-md uppercase tracking-wider text-sm font-bold justify-center"
+                        >
+                            Fill out our Private Events Survey
+                        </Link>
                         <div className="relative aspect-[4/5] w-full max-w-md rounded-lg overflow-hidden border border-gray-200 shadow-lg">
                             <Image
                                 src="/images/wedding-couple-el-meson.png"

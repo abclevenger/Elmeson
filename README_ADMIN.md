@@ -2,6 +2,18 @@
 
 This document explains how to use and configure the Internal Blog Admin and Search Atlas Integration.
 
+## Feature Flags
+
+### Waitlist
+The waitlist functionality is controlled by the `NEXT_PUBLIC_WAITLIST_ENABLED` environment variable.
+- **`false` (default)**: Waitlist is hidden. Links are removed or replaced with "Call for same-day seating". `/priority-seating` redirects to `/contact`.
+- **`true`**: Waitlist is enabled. "Join Waitlist" links and the priority seating page are visible.
+
+To enable the waitlist, add this to your `.env.local` or environment configuration:
+```bash
+NEXT_PUBLIC_WAITLIST_ENABLED=true
+```
+
 ## Environment Variables
 
 You must add the following variables to your `.env.local` or hosting provider (Vercel, Netlify, etc.):

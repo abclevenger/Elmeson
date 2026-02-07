@@ -29,6 +29,12 @@ const NAV_ITEMS = [
     { key: "waitlist", href: "/priority-seating" },
 ];
 
+import { WAITLIST_ENABLED } from "@/lib/config";
+
+const VISIBLE_NAV_ITEMS = WAITLIST_ENABLED
+    ? NAV_ITEMS
+    : NAV_ITEMS.filter(item => item.key !== "waitlist");
+
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
@@ -39,11 +45,11 @@ export default function Navbar() {
     const router = useRouter();
     const { t } = useLanguage();
     const supabase = createClient();
-    
+
     // Check if user is admin
     useEffect(() => {
         if (!supabase) return;
-        
+
         const checkAdmin = async () => {
             try {
                 // First check if there's a session before calling getUser
@@ -54,7 +60,7 @@ export default function Navbar() {
                     setUserEmail(null);
                     return;
                 }
-                
+
                 const { data: { user }, error: userError } = await supabase.auth.getUser();
                 if (userError) {
                     console.error('Error getting user:', userError);
@@ -66,12 +72,12 @@ export default function Navbar() {
                         .select('role, email')
                         .eq('id', user.id)
                         .single();
-                    
+
                     if (profileError) {
                         console.error('Error fetching profile:', profileError);
                         return;
                     }
-                    
+
                     if (profile && profile.role === 'admin') {
                         setIsAdmin(true);
                         setUserEmail(profile.email || user.email || null);
@@ -86,7 +92,7 @@ export default function Navbar() {
 
     const handleLogout = async () => {
         if (!supabase) return;
-        
+
         try {
             const { error } = await supabase.auth.signOut();
             if (error) {
@@ -101,7 +107,7 @@ export default function Navbar() {
             console.error('Error in handleLogout:', error);
         }
     };
-    
+
     // Determine if navbar should be transparent (only on home page initially)
     // Default to transparent on home page until scroll is detected
     const isTransparent = pathname === "/" && !isScrolled && !isAdmin;
@@ -124,7 +130,7 @@ export default function Navbar() {
     };
 
     // Keyboard navigation for desktop dropdowns
-    const handleDropdownKeyDown = (e: React.KeyboardEvent, itemKey: string, item: (typeof NAV_ITEMS)[0]) => {
+    const handleDropdownKeyDown = (e: React.KeyboardEvent, itemKey: string, item: (typeof VISIBLE_NAV_ITEMS)[0]) => {
         if (!item.dropdown) return;
 
         switch (e.key) {
@@ -152,7 +158,7 @@ export default function Navbar() {
 
     // Keyboard navigation within dropdown menu
     const handleDropdownMenuKeyDown = (e: React.KeyboardEvent, itemKey: string, index: number) => {
-        const dropdown = NAV_ITEMS.find((i) => i.key === itemKey)?.dropdown;
+        const dropdown = VISIBLE_NAV_ITEMS.find((i) => i.key === itemKey)?.dropdown;
         if (!dropdown) return;
 
         switch (e.key) {
@@ -262,7 +268,7 @@ export default function Navbar() {
 
         // Cache hero height to avoid repeated DOM queries
         let cachedHeroHeight: number | null = null;
-        
+
         const getHeroHeight = () => {
             if (cachedHeroHeight === null) {
                 const heroSection = document.querySelector('section[role="banner"]');
@@ -274,7 +280,7 @@ export default function Navbar() {
         const handleScroll = () => {
             const scrollY = window.scrollY;
             const heroHeight = getHeroHeight();
-            
+
             if (heroHeight > 0) {
                 setIsScrolled(scrollY > heroHeight - 50);
             } else {
@@ -289,19 +295,19 @@ export default function Navbar() {
             }
             handleScroll();
         };
-        
+
         checkInitial();
         const timeoutId = setTimeout(checkInitial, 100);
 
         // Throttled scroll handler for better mobile performance
         let lastScrollTime = 0;
         const SCROLL_THROTTLE = 100; // Only process scroll every 100ms
-        
+
         const onScroll = () => {
             const now = Date.now();
             if (now - lastScrollTime < SCROLL_THROTTLE) return;
             lastScrollTime = now;
-            
+
             window.requestAnimationFrame(handleScroll);
         };
 
@@ -312,7 +318,7 @@ export default function Navbar() {
 
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onResize, { passive: true });
-        
+
         return () => {
             window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", onResize);
@@ -323,10 +329,10 @@ export default function Navbar() {
     // Admin navbar - blog platform style
     if (isAdmin) {
         return (
-            <nav 
+            <nav
                 suppressHydrationWarning
                 className="fixed top-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm"
-                role="navigation" 
+                role="navigation"
                 aria-label="Admin navigation"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -340,8 +346,8 @@ export default function Navbar() {
 
                         {/* Desktop Menu */}
                         <div className="hidden md:flex items-center space-x-6">
-                            <Link 
-                                href="/admin/blog" 
+                            <Link
+                                href="/admin/blog"
                                 className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-primary transition-colors"
                             >
                                 <FileText size={18} />
@@ -351,7 +357,7 @@ export default function Navbar() {
 
                         {/* Right Side: Settings & User Info */}
                         <div className="hidden md:flex items-center space-x-4">
-                            <div 
+                            <div
                                 className="relative group"
                                 onMouseEnter={() => setDropdownOpen('settings')}
                                 onMouseLeave={handleMouseLeave}
@@ -467,17 +473,16 @@ export default function Navbar() {
             </nav>
         );
     }
-    
+
     // Regular navbar for non-admin users
     return (
-        <nav 
+        <nav
             suppressHydrationWarning
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-                isTransparent 
-                    ? "bg-[var(--charcoal)]/60 backdrop-blur-md border-transparent" 
-                    : "bg-[var(--warm-100)]/95 backdrop-blur-md border-b border-[var(--border)] shadow-sm"
-            }`} 
-            role="navigation" 
+            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isTransparent
+                ? "bg-[var(--charcoal)]/60 backdrop-blur-md border-transparent"
+                : "bg-[var(--warm-100)]/95 backdrop-blur-md border-b border-[var(--border)] shadow-sm"
+                }`}
+            role="navigation"
             aria-label="Main navigation"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -501,7 +506,7 @@ export default function Navbar() {
                     {/* Desktop Menu */}
                     <div className="hidden lg:block">
                         <div className="ml-10 flex items-baseline space-x-4 xl:space-x-5 flex-nowrap">
-                            {NAV_ITEMS.map((item) => (
+                            {VISIBLE_NAV_ITEMS.map((item) => (
                                 <div
                                     key={item.key}
                                     className="relative"
@@ -511,23 +516,22 @@ export default function Navbar() {
                                     {item.dropdown ? (
                                         <>
                                             <button
-                                                className={`transition-all duration-300 px-2 py-2 rounded-md text-xs font-medium uppercase tracking-wide flex items-center space-x-1 min-h-[44px] whitespace-nowrap ${
-                                                    isTransparent 
-                                                        ? "text-[var(--warm-100)] hover:text-[var(--warm-300)]" 
-                                                        : "text-[var(--charcoal)] hover:text-[var(--gold)]"
-                                                }`}
+                                                className={`transition-all duration-300 px-2 py-2 rounded-md text-xs font-medium uppercase tracking-wide flex items-center space-x-1 min-h-[44px] whitespace-nowrap ${isTransparent
+                                                    ? "text-[var(--warm-100)] hover:text-[var(--warm-300)]"
+                                                    : "text-[var(--charcoal)] hover:text-[var(--gold)]"
+                                                    }`}
                                                 style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}
                                                 aria-expanded={dropdownOpen === item.key}
                                                 aria-haspopup="true"
                                                 onKeyDown={(e) => handleDropdownKeyDown(e, item.key, item)}
                                             >
                                                 <span className={`text-xs font-medium`} style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}>{t.nav[item.key as keyof typeof t.nav]}</span>
-                                                <ChevronDown 
-                                                    size={16} 
+                                                <ChevronDown
+                                                    size={16}
                                                     className="transition-colors duration-300"
                                                     style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}
                                                     strokeWidth={2}
-                                                    aria-hidden="true" 
+                                                    aria-hidden="true"
                                                 />
                                             </button>
                                             {dropdownOpen === item.key && (
@@ -564,11 +568,10 @@ export default function Navbar() {
                                     ) : (
                                         <Link
                                             href={item.href}
-                                            className={`transition-all duration-300 px-2 py-2 rounded-md text-xs font-medium uppercase tracking-wide min-h-[44px] flex items-center whitespace-nowrap ${
-                                                isTransparent 
-                                                    ? "hover:text-gray-200" 
-                                                    : "hover:text-primary"
-                                            }`}
+                                            className={`transition-all duration-300 px-2 py-2 rounded-md text-xs font-medium uppercase tracking-wide min-h-[44px] flex items-center whitespace-nowrap ${isTransparent
+                                                ? "hover:text-gray-200"
+                                                : "hover:text-primary"
+                                                }`}
                                             style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}
                                         >
                                             {t.nav[item.key as keyof typeof t.nav]}
@@ -582,29 +585,27 @@ export default function Navbar() {
                     {/* Language toggle + Social Icons (Desktop) */}
                     <div className="hidden lg:flex items-center space-x-3">
                         <LanguageToggle transparent={isTransparent} />
-                        <Link 
-                            href="https://www.facebook.com/ElMesonKeyWest/" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className={`transition-all duration-300 p-2 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                                isTransparent 
-                                    ? "hover:text-[var(--warm-300)] hover:bg-white/10" 
-                                    : "hover:text-[var(--gold)] hover:bg-[var(--warm-200)]"
-                            }`}
+                        <Link
+                            href="https://www.facebook.com/ElMesonKeyWest/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`transition-all duration-300 p-2 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${isTransparent
+                                ? "hover:text-[var(--warm-300)] hover:bg-white/10"
+                                : "hover:text-[var(--gold)] hover:bg-[var(--warm-200)]"
+                                }`}
                             style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}
                             aria-label="Visit us on Facebook"
                         >
                             <Facebook size={24} strokeWidth={1.5} aria-hidden="true" />
                         </Link>
-                        <Link 
-                            href="https://www.instagram.com/elmesondepepe/" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className={`transition-all duration-300 p-2 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                                isTransparent 
-                                    ? "hover:text-[var(--warm-300)] hover:bg-white/10" 
-                                    : "hover:text-[var(--gold)] hover:bg-[var(--warm-200)]"
-                            }`}
+                        <Link
+                            href="https://www.instagram.com/elmesondepepe/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`transition-all duration-300 p-2 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${isTransparent
+                                ? "hover:text-[var(--warm-300)] hover:bg-white/10"
+                                : "hover:text-[var(--gold)] hover:bg-[var(--warm-200)]"
+                                }`}
                             style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}
                             aria-label="Visit us on Instagram"
                         >
@@ -617,11 +618,10 @@ export default function Navbar() {
                         <button
                             ref={menuButtonRef}
                             onClick={() => setIsOpen(!isOpen)}
-                            className={`transition-all duration-300 p-3 rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                                isTransparent 
-                                    ? "hover:text-[var(--warm-300)]" 
-                                    : "hover:text-[var(--gold)]"
-                            }`}
+                            className={`transition-all duration-300 p-3 rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center ${isTransparent
+                                ? "hover:text-[var(--warm-300)]"
+                                : "hover:text-[var(--gold)]"
+                                }`}
                             style={isTransparent ? { color: 'var(--warm-100)' } : { color: 'var(--charcoal)' }}
                             aria-label={isOpen ? "Close menu" : "Open menu"}
                             aria-expanded={isOpen}
@@ -648,7 +648,7 @@ export default function Navbar() {
                     aria-label="Main navigation menu"
                 >
                     <div className="px-4 pt-4 pb-6 space-y-2">
-                        {NAV_ITEMS.map((item) => (
+                        {VISIBLE_NAV_ITEMS.map((item) => (
                             <div key={item.key} className="border-b border-[var(--border)] last:border-0 pb-2 last:pb-0">
                                 {item.dropdown ? (
                                     <>

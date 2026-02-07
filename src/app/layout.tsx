@@ -87,17 +87,34 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                // Aggressively remove known extension injections that break hydration
+                var cleanup = function() {
+                  var el = document.getElementById('contentOverview');
+                  if (el) el.remove();
+                };
+                cleanup();
+                if (typeof MutationObserver !== 'undefined') {
+                  new MutationObserver(cleanup).observe(document, { childList: true, subtree: true });
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
       </head>
       <body
         className={`${dmSans.variable} ${greatVibes.variable} ${playfairDisplay.variable} antialiased`}
         suppressHydrationWarning
       >
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <OrganizationSchema />
-        {/* suppressHydrationWarning: Cursor's embedded browser injects data-cursor-ref into the DOM, causing attribute mismatch. Not an issue in production or normal browsers. */}
         <div suppressHydrationWarning>
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+          <OrganizationSchema />
+          {/* suppressHydrationWarning: Cursor's embedded browser injects data-cursor-ref into the DOM, causing attribute mismatch. Not an issue in production or normal browsers. */}
           <Providers>
             <header role="banner">
               <Navbar />

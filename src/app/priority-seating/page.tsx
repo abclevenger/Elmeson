@@ -18,7 +18,14 @@ export const metadata: Metadata = {
 
 const PRIORITY_SEATING_FORM_URL = "https://link.ymbs.pro/widget/form/wtSXA42g1zdkkMjuTT92";
 
+import { redirect } from "next/navigation";
+import { WAITLIST_ENABLED } from "@/lib/config";
+
 export default function PrioritySeatingPage() {
+  if (!WAITLIST_ENABLED) {
+    redirect("/contact?waitlist=coming-soon");
+  }
+
   return (
     <>
       <BreadcrumbSchema

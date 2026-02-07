@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageToggle from "@/components/common/LanguageToggle";
+import { WAITLIST_ENABLED } from "@/lib/config";
 
 // Custom TikTok icon component since lucide-react doesn't include it
 const TikTokIcon = ({ size = 32, className = "" }: { size?: number; className?: string }) => (
@@ -152,12 +153,22 @@ export default function Footer() {
                                 <span>{t.footer.subscribe}</span>
                                 <Mail size={14} />
                             </button>
-                            <Link
-                                href="/priority-seating"
-                                className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest py-3.5 rounded-lg transition-all"
-                            >
-                                {t.footer.waitlistCta}
-                            </Link>
+                            {WAITLIST_ENABLED ? (
+                                <Link
+                                    href="/priority-seating"
+                                    className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest py-3.5 rounded-lg transition-all"
+                                >
+                                    {t.footer.waitlistCta}
+                                </Link>
+                            ) : (
+                                <a
+                                    href="tel:+13052952620"
+                                    className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest py-3.5 rounded-lg transition-all whitespace-nowrap"
+                                >
+                                    <Phone size={14} className="shrink-0" />
+                                    <span>{t.footer.callForSeating || "Call for same-day seating: 305-295-2620"}</span>
+                                </a>
+                            )}
                         </form>
                     </div>
                 </div>
