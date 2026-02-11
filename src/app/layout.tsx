@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Great_Vibes, Playfair_Display } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -36,16 +35,16 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "El Mesón de Pepe — A Living Museum of Cuban American Heritage | Key West",
+    default: "Best Cuban Restaurant Key West | Mallory Square | El Mesón de Pepe",
     template: "%s | El Mesón de Pepe",
   },
-  description: "Where Cuban culture became Cuban American history. A living archive of Cuban American Conch heritage in Mallory Square. Cuisine as cultural expression.",
-  keywords: ["Cuban American heritage", "Key West", "Mallory Square", "living museum", "Cuban Conch", "El Mesón de Pepe", "Cuban American history", "Key West Cuban"],
+  description: "Best Cuban food Key West—Mallory Square waterfront. Ropa Vieja, mojitos, live salsa, sunset patio. Cuban restaurant at Mallory Square since 1997.",
+  keywords: ["Cuban restaurant Key West", "Mallory Square restaurant", "best Cuban food Key West", "Cuban American heritage", "Key West Cuban", "El Mesón de Pepe"],
   authors: [{ name: "El Mesón de Pepe" }],
   creator: "El Mesón de Pepe",
   publisher: "El Mesón de Pepe",
   metadataBase: new URL("https://www.elmesondepepe.com"),
-  alternates: { canonical: "/" },
+  alternates: { canonical: "https://www.elmesondepepe.com/" },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -71,6 +70,7 @@ import Footer from "@/components/layout/Footer";
 import ContactBar from "@/components/layout/ContactBar";
 import CookieBanner from "@/components/common/CookieBanner";
 import AnniversaryBanner from "@/components/common/AnniversaryBanner";
+import DeferredThirdPartyScripts from "@/components/common/DeferredThirdPartyScripts";
 import Providers from "@/components/providers/Providers";
 import { OrganizationSchema } from "@/lib/schema";
 
@@ -126,43 +126,8 @@ export default function RootLayout({
             <CookieBanner />
           </Providers>
         </div>
-        {/* Deferred third-party scripts for better mobile performance */}
-        <Script
-          id="sa-dynamic-optimization"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `var script = document.createElement("script");script.setAttribute("nowprocket", "");script.setAttribute("nitro-exclude", "");script.src = "https://seo.ymbs.pro/scripts/dynamic_optimization.js";script.dataset.uuid = "f1f7b153-6650-4384-b863-b4f3c9330d09";script.id = "sa-dynamic-optimization-loader";document.head.appendChild(script);`,
-          }}
-        />
-        {/* Google Analytics 4 - deferred for mobile performance */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-0YWZC8X9PH"
-          strategy="lazyOnload"
-        />
-        <Script
-          id="google-analytics"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-0YWZC8X9PH');
-            `,
-          }}
-        />
-        <Script
-          src="https://link.ymbs.pro/js/external-tracking.js"
-          data-tracking-id="tk_3de1f1b5d7ef4de1a4230dc8d4b3919e"
-          strategy="lazyOnload"
-        />
-        {/* LeadConnector chat widget */}
-        <Script
-          src="https://beta.leadconnectorhq.com/loader.js"
-          data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js"
-          data-widget-id="695dd899df0d1eee130bf73b"
-          strategy="lazyOnload"
-        />
+        {/* Third-party scripts deferred until after LCP or user interaction */}
+        <DeferredThirdPartyScripts />
       </body>
     </html>
   );

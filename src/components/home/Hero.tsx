@@ -21,8 +21,9 @@ export default function Hero() {
           fill
           className="object-cover brightness-[1.08] saturate-[1.05]"
           priority
-          quality={90}
-          sizes="100vw"
+          fetchPriority="high"
+          quality={78}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 2048px"
         />
         {/* Lighter overlay so the sunset shows through; warm-tinted dark */}
         <div
@@ -100,17 +101,17 @@ export default function Hero() {
               </Link>
             )}
           </div>
-          <div className="flex flex-wrap gap-x-6 gap-y-1 justify-center">
+          <div className="hero-cta-links flex flex-wrap gap-x-6 gap-y-1 justify-center">
             <Link
               href="/story"
-              className="text-[var(--warm-200)] text-sm hover:text-[var(--gold)] transition-colors underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent rounded"
+              className="hero-cta-link text-sm transition-colors underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent rounded"
               aria-label={t.hero.ctaAria}
             >
               {t.hero.cta}
             </Link>
             <Link
               href="/story#anniversary-video"
-              className="text-[var(--warm-200)] text-sm hover:text-[var(--gold)] transition-colors underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent rounded"
+              className="hero-cta-link text-sm transition-colors underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent rounded"
               aria-label={t.hero.watchVideoAria}
             >
               {t.hero.watchVideo}

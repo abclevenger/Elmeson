@@ -72,6 +72,10 @@ export default function StoryPageContent() {
             <HeritageTimeline entries={t.story.restaurantTimeline} />
           </section>
 
+          <p className="mt-10 text-[var(--warm-700)] text-center font-light">
+            Explore our <Link href="/menu" className="text-[var(--gold)] hover:underline font-medium">Cuban restaurant menu in Key West</Link> or{' '}
+            <Link href="/" className="text-[var(--gold)] hover:underline font-medium">return to El Mesón de Pepe home</Link>.
+          </p>
           <div className="mt-14 flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
             <Link href="/story/history" className="btn-primary inline-flex justify-center">
               {t.story.ctaHistory}

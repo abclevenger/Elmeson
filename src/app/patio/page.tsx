@@ -6,16 +6,17 @@ import { GOOGLE_MAPS_URL } from "@/lib/site";
 import SunsetTime from "@/components/SunsetTime";
 
 export const metadata: Metadata = {
-  title: "Patio Bar — Sunset Drinks & Live Music | Mallory Square | El Mesón de Pepe",
+  title: "Patio Bar Mallory Square | Sunset Views & Waterfront Dining Key West",
   description:
-    "Cuban cocktails, live Caribbean music, and Mallory Square sunset views. No reservations—walk in or join the waitlist for a specific time. Best sunset bar in Key West.",
+    "Mallory Square patio bar with Gulf sunset views. Cuban cocktails, live salsa, waterfront dining Key West. Best sunset bar Mallory Square. Walk-ins welcome.",
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Patio Bar — Sunset Drinks & Live Music | Mallory Square | El Mesón de Pepe",
-    description: "Cuban cocktails, live Caribbean music, and Mallory Square sunset views. Walk-ins welcome.",
+    title: "Patio Bar Mallory Square | Sunset Views & Waterfront Dining Key West",
+    description: "Waterfront patio at Mallory Square. Cuban cocktails, live salsa, Gulf sunset views. Best sunset bar in Key West.",
     url: "https://www.elmesondepepe.com/patio",
+    images: [{ url: "/images/key-west-bars-el-meson-patio-2048x751.png", width: 1200, height: 630, alt: "Patio Bar Mallory Square — El Mesón de Pepe" }],
   },
-  alternates: { canonical: "/patio" },
+  alternates: { canonical: "https://www.elmesondepepe.com/patio" },
 };
 
 export default function PatioBarPage() {
@@ -44,7 +45,7 @@ export default function PatioBarPage() {
             </h1>
             <div className="h-0.5 w-20 bg-[var(--gold)] mx-auto mb-4" />
             <p className="text-lg md:text-xl text-[var(--warm-300)] max-w-2xl mx-auto font-light mb-6">
-              The Patio Bar at Mallory Square. Cuban cocktails and Caribbean music by the water—your first stop before Duval.
+              The Patio Bar at Mallory Square. Cuban cocktails and Caribbean music by the water—your first stop before Duval. <Link href="/" className="text-[var(--gold)] hover:underline">Back to El Mesón de Pepe</Link> · <Link href="/menu" className="text-[var(--gold)] hover:underline">View our Cuban food menu</Link>.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/priority-seating" className="btn-primary btn-waitlist inline-flex">

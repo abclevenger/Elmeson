@@ -34,16 +34,16 @@ export default function HomeFAQ() {
             }
 
             return (
-              <ScrollReveal key={idx} delay={idx * 50}>
-                <li>
+              <li key={idx}>
+                <ScrollReveal delay={idx * 50}>
                   <h3 className="text-lg font-semibold text-[var(--charcoal)] mb-2">
                     {item.q}
                   </h3>
                   <p className="text-[var(--warm-700)] text-base leading-relaxed font-light">
                     {answer}
                   </p>
-                </li>
-              </ScrollReveal>
+                </ScrollReveal>
+              </li>
             )
           })}
         </ul>

@@ -5,17 +5,17 @@ import { MenuSchema, BreadcrumbSchema } from "@/lib/schema";
 import menuData from "@/data/menu.json";
 
 export const metadata: Metadata = {
-  title: "The Catalog — Cuisine as Cultural Continuity",
+  title: "Cuban Restaurant Menu Key West | Authentic Dishes | Mallory Square",
   description:
-    "Living Cuban American tradition. The menu as cultural catalog—Ropa Vieja, Cayo Hueso Cuban Mix, and more, with notes on how each evolved in Key West.",
+    "Cuban restaurant menu Key West: Ropa Vieja, Lechón Asado, Cayo Hueso Cuban Mix, mojitos. Authentic Cuban dishes at Mallory Square waterfront. View our full menu.",
   robots: { index: true, follow: true },
   openGraph: {
-    title: "The Catalog | El Mesón de Pepe — Cuisine as Cultural Continuity",
-    description: "Living Cuban American tradition. The menu as cultural catalog.",
+    title: "Cuban Restaurant Menu Key West | El Mesón de Pepe | Mallory Square",
+    description: "Authentic Cuban dishes at Mallory Square—Ropa Vieja, Cuban sandwiches, tapas. Waterfront Cuban restaurant menu Key West.",
     url: "https://www.elmesondepepe.com/menu",
     images: [{ url: "/images/food_intro.png", width: 1200, height: 630, alt: "El Mesón de Pepe — Cuban American cuisine" }],
   },
-  alternates: { canonical: "/menu" },
+  alternates: { canonical: "https://www.elmesondepepe.com/menu" },
 };
 
 const MENU_SECTIONS = [

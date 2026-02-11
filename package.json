@@ -13,7 +13,8 @@
     "supabase:status": "supabase status",
     "supabase:reset": "supabase db reset",
     "supabase:studio": "supabase studio",
-    "supabase:import-blog-json": "node scripts/import-blog-posts-json.mjs"
+    "supabase:import-blog-json": "node scripts/import-blog-posts-json.mjs",
+    "check-env": "node scripts/check-env.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

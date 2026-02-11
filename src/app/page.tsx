@@ -12,16 +12,16 @@ import { RestaurantSchema, BreadcrumbSchema, FAQSchema } from "@/lib/schema";
 import { translations } from "@/lib/translations";
 
 export const metadata: Metadata = {
-  title: "Cuban Restaurant at Mallory Square Key West | El Mesón de Pepe — Menu, Sunset & Live Music",
-  description: "Authentic Cuban dinner and sunset at Mallory Square, Key West. Open daily 11 AM–10 PM. Live salsa, waterfront patio, Ropa Vieja, mojitos. View menu, join waitlist, or call for same-day seating.",
+  title: "Best Cuban Restaurant Key West | Mallory Square | El Mesón de Pepe",
+  description: "Best Cuban food Key West—Mallory Square waterfront. Ropa Vieja, mojitos, live salsa, sunset patio. Open daily 11 AM–10 PM. Cuban restaurant at Mallory Square.",
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Cuban Restaurant at Mallory Square Key West | El Mesón de Pepe",
-    description: "Authentic Cuban dinner and sunset at Mallory Square. Open daily. Live salsa, waterfront patio. View menu or call for seating.",
+    title: "Best Cuban Restaurant Key West | Mallory Square | El Mesón de Pepe",
+    description: "Best Cuban food Key West—Mallory Square waterfront. Ropa Vieja, mojitos, live salsa. Open daily 11 AM–10 PM.",
     url: "https://www.elmesondepepe.com",
     images: [{ url: "/sunset-from-el-meson-2048x1087.png", width: 1200, height: 630, alt: "Mallory Square, Key West — El Mesón de Pepe" }],
   },
-  alternates: { canonical: "/" },
+  alternates: { canonical: "https://www.elmesondepepe.com/" },
 };
 
 export default function Home() {

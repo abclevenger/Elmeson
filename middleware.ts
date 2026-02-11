@@ -1,7 +1,23 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+/** Canonical URL format: no trailing slash. Redirect /path/ → /path (301). */
+function redirectTrailingSlash(request: NextRequest): NextResponse | null {
+  const pathname = request.nextUrl.pathname;
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    const canonical = pathname.slice(0, -1);
+    const url = request.nextUrl.clone();
+    url.pathname = canonical;
+    return NextResponse.redirect(url, 301);
+  }
+  return null;
+}
+
 export async function middleware(request: NextRequest) {
+  // SEO: Consolidate duplicate URLs — 301 redirect trailing slash to canonical (no slash)
+  const trailingRedirect = redirectTrailingSlash(request);
+  if (trailingRedirect) return trailingRedirect;
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -70,6 +86,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/admin/:path*',
+    // Run on page routes for trailing-slash redirect; exclude static assets
+    '/((?!_next|api|images|favicon|sitemap|robots).*)',
   ],
 };

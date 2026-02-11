@@ -51,19 +51,20 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-4 pt-2">
                             {[
-                                { Icon: Facebook, href: "https://www.facebook.com/ElMesonKeyWest/" },
-                                { Icon: Instagram, href: "https://www.instagram.com/elmesondepepe/" },
-                                { Icon: Linkedin, href: "https://www.linkedin.com/company/el-meson-de-pepe" },
-                                { Icon: TikTokIcon, href: "https://www.tiktok.com/@elmesondepepe" }
-                            ].map(({ Icon, href }, idx) => (
+                                { Icon: Facebook, href: "https://www.facebook.com/ElMesonKeyWest/", label: "El Mesón de Pepe on Facebook" },
+                                { Icon: Instagram, href: "https://www.instagram.com/elmesondepepe/", label: "El Mesón de Pepe on Instagram" },
+                                { Icon: Linkedin, href: "https://www.linkedin.com/company/el-meson-de-pepe", label: "El Mesón de Pepe on LinkedIn" },
+                                { Icon: TikTokIcon, href: "https://www.tiktok.com/@elmesondepepe", label: "El Mesón de Pepe on TikTok" }
+                            ].map(({ Icon, href, label }, idx) => (
                                 <a
                                     key={idx}
                                     href={href}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label={label}
                                     className="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-[var(--warm-100)] hover:bg-[var(--gold)]/20 hover:border-[var(--gold)]/50 transition-all duration-300 group"
                                 >
-                                    <Icon size={18} className="text-white group-hover:scale-110 transition-transform" />
+                                    <Icon size={18} className="text-white group-hover:scale-110 transition-transform" aria-hidden="true" />
                                 </a>
                             ))}
                         </div>

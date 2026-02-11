@@ -137,11 +137,19 @@ h3 {
 }
 
 /* Link default color — exclude footer and button classes so they keep their own colors */
-a:not(.bg-primary):not(.bg-secondary):not([class*="text-white"]):not(footer *):not(.btn-primary):not(.btn-hero) {
+a:not(.bg-primary):not(.bg-secondary):not([class*="text-white"]):not(footer *):not(.btn-primary):not(.btn-hero):not(.hero-cta-link) {
   color: var(--charcoal);
 }
 
-a:hover:not(.bg-primary):not(.bg-secondary):not([class*="text-white"]):not(footer *):not(.btn-primary):not(.btn-hero) {
+a:hover:not(.bg-primary):not(.bg-secondary):not([class*="text-white"]):not(footer *):not(.btn-primary):not(.btn-hero):not(.hero-cta-link) {
+  color: var(--gold);
+}
+
+/* Hero secondary links (Enter the Legacy, Watch Video) — light text on dark background */
+.hero-cta-links a {
+  color: var(--warm-200);
+}
+.hero-cta-links a:hover {
   color: var(--gold);
 }
 

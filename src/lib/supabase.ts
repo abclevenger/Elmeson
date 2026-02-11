@@ -1,18 +1,34 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '@/lib/database.types';
+import { getSupabaseServerEnv } from '@/lib/env';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+let _client: ReturnType<typeof createClient<Database>> | null = null;
 
-if (!supabaseUrl || !supabaseServiceRoleKey) {
-  throw new Error('Missing Supabase environment variables');
+/**
+ * Lazily create Supabase client with service role (server-only).
+ * Throws only when first used and env vars are missing—not at import.
+ * This allows builds to succeed without Supabase configured (e.g., CI).
+ */
+function getClient(): ReturnType<typeof createClient<Database>> {
+  if (_client) return _client;
+  const { url, serviceRoleKey } = getSupabaseServerEnv();
+  _client = createClient<Database>(url, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+  return _client;
 }
 
-// Create a Supabase client with service role key for server-side operations
-// This bypasses RLS policies, which is what we want for API routes
-export const supabase = createClient<Database>(supabaseUrl, supabaseServiceRoleKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
+/**
+ * Server-side Supabase client (service role). Use in API routes, Server Components, server actions.
+ * Do NOT import in client components—use supabase-browser instead.
+ *
+ * Lazy init: no throw at import. Throws only on first use if env vars missing.
+ */
+export const supabase = new Proxy({} as ReturnType<typeof createClient<Database>>, {
+  get(_, prop) {
+    return (getClient() as any)[prop];
   },
 });

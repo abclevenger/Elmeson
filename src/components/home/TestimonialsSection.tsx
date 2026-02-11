@@ -30,13 +30,13 @@ export default function TestimonialsSection() {
         </ScrollReveal>
         <ul className="space-y-8">
           {quotes.map((quote, idx) => (
-            <ScrollReveal key={idx} delay={idx * 60}>
-              <li className="text-center">
+            <li key={idx} className="text-center">
+              <ScrollReveal delay={idx * 60}>
                 <blockquote className="text-[var(--warm-700)] text-lg md:text-xl font-light italic leading-relaxed">
                   &ldquo;{quote}&rdquo;
                 </blockquote>
-              </li>
-            </ScrollReveal>
+              </ScrollReveal>
+            </li>
           ))}
         </ul>
       </div>

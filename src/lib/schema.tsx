@@ -16,13 +16,13 @@ export function JsonLd({ schema }: SchemaProps) {
   );
 }
 
-// Restaurant/LocalBusiness Schema
+// Restaurant/LocalBusiness Schema — homepage + rich results
 export function RestaurantSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "@id": "https://www.elmesondepepe.com/#restaurant",
-    name: "El Meson de Pepe",
+    name: "El Mesón de Pepe",
     image: "https://www.elmesondepepe.com/images/el-meson-de-pepe-key-west-logo.webp",
     description: "A living museum of Cuban American heritage in Key West. El Mesón de Pepe guards Cuban American Conch history at Mallory Square—cuisine as cultural expression, since 1997.",
     address: {
@@ -134,64 +134,40 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
   return <JsonLd schema={schema} />;
 }
 
-// Menu Schema
+// Menu Schema — for menu page and rich results
 export function MenuSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Menu",
-    name: "El Meson de Pepe Menu",
-    description: "Authentic Cuban cuisine menu featuring traditional dishes from Cuba",
+    "@id": "https://www.elmesondepepe.com/menu#menuschema",
+    name: "Cuban Restaurant Menu | El Mesón de Pepe Key West",
+    description: "Authentic Cuban cuisine menu at Mallory Square, Key West. Ropa Vieja, Lechón Asado, Cayo Hueso Cuban Mix, tapas, mojitos.",
+    url: "https://www.elmesondepepe.com/menu",
+    inLanguage: "en",
     hasMenuSection: [
       {
         "@type": "MenuSection",
-        name: "Aperitivos / Appetizers",
+        name: "Tapas / Appetizers",
         hasMenuItem: [
-          {
-            "@type": "MenuItem",
-            name: "Empanadas",
-            description: "Turnovers filled with your choice of beef, chicken, or cheese.",
-            offers: {
-              "@type": "Offer",
-              price: "12.00",
-              priceCurrency: "USD",
-            },
-          },
-          {
-            "@type": "MenuItem",
-            name: "Tostones Rellenos",
-            description: "Green plantains stuffed with ground beef or shrimp enchilada.",
-            offers: {
-              "@type": "Offer",
-              price: "14.00",
-              priceCurrency: "USD",
-            },
-          },
+          { "@type": "MenuItem", name: "Pepe's Cuban Nachos", description: "Plantain chips with Ropa Vieja, Picadillo, guacamole" },
+          { "@type": "MenuItem", name: "Empanadas de Carne o Pollo", description: "Cuban turnovers filled with seasoned beef or chicken" },
+          { "@type": "MenuItem", name: "Tostones Rellenos", description: "Stuffed green plantains with pork, Picadillo, Ropa Vieja" },
         ],
       },
       {
         "@type": "MenuSection",
-        name: "Platos Fuertes / Entrees",
+        name: "Cuban Entrees",
         hasMenuItem: [
-          {
-            "@type": "MenuItem",
-            name: "Ropa Vieja",
-            description: "Shredded beef stewed in a tomato base sauce with onions, peppers, and authentic spices.",
-            offers: {
-              "@type": "Offer",
-              price: "24.00",
-              priceCurrency: "USD",
-            },
-          },
-          {
-            "@type": "MenuItem",
-            name: "Lechón Asado",
-            description: "Traditional roasted pork marinated in our signature mojo criollo sauce.",
-            offers: {
-              "@type": "Offer",
-              price: "22.00",
-              priceCurrency: "USD",
-            },
-          },
+          { "@type": "MenuItem", name: "Ropa Vieja", description: "Shredded beef in tomato sauce with onions, peppers, rice, black beans, plantains" },
+          { "@type": "MenuItem", name: "Lechón Asado", description: "Roast pork with mojo criollo, rice, black beans, plantains" },
+          { "@type": "MenuItem", name: "Completa de Caballo Grande", description: "Lechon Asado, Ropa Vieja, and Picadillo sampler" },
+        ],
+      },
+      {
+        "@type": "MenuSection",
+        name: "Sandwiches",
+        hasMenuItem: [
+          { "@type": "MenuItem", name: "Cayo Hueso Cuban Mix", description: "Ham, roast pork, Swiss, pickles, mustard on pressed Cuban bread" },
         ],
       },
     ],

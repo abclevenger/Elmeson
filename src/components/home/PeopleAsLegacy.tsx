@@ -157,17 +157,22 @@ export default function PeopleAsLegacy() {
                     <p className="text-[var(--warm-700)] text-base md:text-lg leading-relaxed font-light">
                       {f.impact}
                     </p>
-                    {"moreInfoHref" in item && item.moreInfoHref && (
-                      <div className={`mt-6 ${index % 2 === 1 ? "lg:text-right" : ""}`}>
-                        <Link
-                          href={item.moreInfoHref}
-                          className="inline-flex items-center gap-2 text-[var(--charcoal)] font-medium text-sm uppercase tracking-wider border-b-2 border-[var(--gold)] pb-0.5 hover:text-[var(--gold)] transition-colors"
-                          aria-label={t.legacy.moreInfoAria}
-                        >
-                          {t.legacy.moreInfo}
-                        </Link>
-                      </div>
-                    )}
+                    {"moreInfoHref" in item && item.moreInfoHref && (() => {
+                      const legacy = t.legacy as { learnMoreAboutName?: string; moreInfo?: string; moreInfoAria?: string };
+                      const linkText = legacy.learnMoreAboutName?.replace("{name}", f.name) ?? legacy.moreInfo;
+                      const ariaLabel = legacy.learnMoreAboutName?.replace("{name}", f.name) ?? legacy.moreInfoAria;
+                      return (
+                        <div className={`mt-6 ${index % 2 === 1 ? "lg:text-right" : ""}`}>
+                          <Link
+                            href={item.moreInfoHref}
+                            className="inline-flex items-center gap-2 text-[var(--charcoal)] font-medium text-sm uppercase tracking-wider border-b-2 border-[var(--gold)] pb-0.5 hover:text-[var(--gold)] transition-colors"
+                            aria-label={ariaLabel ?? `Learn more about ${f.name}`}
+                          >
+                            {linkText}
+                          </Link>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </article>
               </ScrollReveal>
