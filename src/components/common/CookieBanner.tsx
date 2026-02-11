@@ -6,11 +6,16 @@ export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted cookies
     const cookieConsent = localStorage.getItem("cookieConsent");
     if (!cookieConsent) {
-      // Small delay to ensure smooth appearance
-      setTimeout(() => setShowBanner(true), 500);
+      let cancelled = false;
+      const id = setTimeout(() => {
+        if (!cancelled) setShowBanner(true);
+      }, 500);
+      return () => {
+        cancelled = true;
+        clearTimeout(id);
+      };
     }
   }, []);
 

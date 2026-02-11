@@ -49,19 +49,20 @@ export default function Navbar() {
     // Check if user is admin
     useEffect(() => {
         if (!supabase) return;
+        let cancelled = false;
 
         const checkAdmin = async () => {
             try {
-                // First check if there's a session before calling getUser
                 const { data: { session } } = await supabase.auth.getSession();
+                if (cancelled) return;
                 if (!session) {
-                    // No session, user is not logged in - this is normal, not an error
                     setIsAdmin(false);
                     setUserEmail(null);
                     return;
                 }
 
                 const { data: { user }, error: userError } = await supabase.auth.getUser();
+                if (cancelled) return;
                 if (userError) {
                     console.error('Error getting user:', userError);
                     return;
@@ -73,6 +74,7 @@ export default function Navbar() {
                         .eq('id', user.id)
                         .single();
 
+                    if (cancelled) return;
                     if (profileError) {
                         console.error('Error fetching profile:', profileError);
                         return;
@@ -84,10 +86,11 @@ export default function Navbar() {
                     }
                 }
             } catch (error) {
-                console.error('Error in checkAdmin:', error);
+                if (!cancelled) console.error('Error in checkAdmin:', error);
             }
         };
         checkAdmin();
+        return () => { cancelled = true; };
     }, [supabase, pathname]);
 
     const handleLogout = async () => {
@@ -260,10 +263,12 @@ export default function Navbar() {
     // Scroll detection for transparent navbar on home page
     // Optimized with throttling for better mobile performance
     useEffect(() => {
+        let cancelled = false;
+
         // Only apply transparent navbar on home page and when not admin
         if (pathname !== "/" || isAdmin) {
             setIsScrolled(true);
-            return;
+            return () => { cancelled = true; };
         }
 
         // Cache hero height to avoid repeated DOM queries
@@ -278,6 +283,7 @@ export default function Navbar() {
         };
 
         const handleScroll = () => {
+            if (cancelled) return;
             const scrollY = window.scrollY;
             const heroHeight = getHeroHeight();
 
@@ -288,16 +294,17 @@ export default function Navbar() {
             }
         };
 
-        // Check initial scroll position
+        // Defer initial check so we're past initial commit (fixes "state update on unmounted" in strict/concurrent mode)
         const checkInitial = () => {
+            if (cancelled) return;
+            if (typeof window === "undefined") return;
             if (window.scrollY === 0) {
                 setIsScrolled(false);
             }
             handleScroll();
         };
 
-        checkInitial();
-        const timeoutId = setTimeout(checkInitial, 100);
+        const timeoutId = setTimeout(checkInitial, 0);
 
         // Throttled scroll handler for better mobile performance
         let lastScrollTime = 0;
@@ -320,6 +327,7 @@ export default function Navbar() {
         window.addEventListener("resize", onResize, { passive: true });
 
         return () => {
+            cancelled = true;
             window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", onResize);
             if (timeoutId) clearTimeout(timeoutId);

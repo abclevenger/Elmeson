@@ -11,14 +11,15 @@ export default function SunsetTime() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     const today = new Date().toISOString().split("T")[0];
     fetch(
       `https://api.sunrise-sunset.org/json?lat=${KEY_WEST_LAT}&lng=${KEY_WEST_LNG}&date=${today}&formatted=1&tzid=America/New_York`
     )
       .then((res) => res.json())
       .then((data) => {
+        if (cancelled) return;
         if (data.status === "OK" && data.results?.sunset) {
-          // API returns "H:MM:SS AM/PM" - extract hour, minute, and AM/PM
           const sunsetStr = data.results.sunset;
           const [timePart, ampm] = sunsetStr.split(" ");
           const [h, m] = timePart.split(":");
@@ -27,7 +28,10 @@ export default function SunsetTime() {
           setError(true);
         }
       })
-      .catch(() => setError(true));
+      .catch(() => {
+        if (!cancelled) setError(true);
+      });
+    return () => { cancelled = true; };
   }, []);
 
   if (error) return null;

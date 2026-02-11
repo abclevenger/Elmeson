@@ -149,7 +149,7 @@ export default function Footer() {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full bg-[var(--gold)] hover:bg-[var(--charcoal)] text-[var(--charcoal)] hover:text-[var(--warm-100)] text-xs font-bold uppercase tracking-widest py-3.5 rounded-lg transition-all shadow-lg shadow-black/20 flex items-center justify-center gap-2"
+                                className="w-full bg-[var(--gold)] hover:bg-[var(--charcoal)] text-[var(--charcoal)] hover:text-[var(--warm-100)] text-xs font-bold uppercase tracking-widest min-h-[48px] py-4 px-4 rounded-lg transition-all shadow-lg shadow-black/20 flex items-center justify-center gap-2"
                             >
                                 <span>{t.footer.subscribe}</span>
                                 <Mail size={14} />
@@ -157,17 +157,18 @@ export default function Footer() {
                             {WAITLIST_ENABLED ? (
                                 <Link
                                     href="/priority-seating"
-                                    className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest py-3.5 rounded-lg transition-all"
+                                    className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest min-h-[48px] py-4 px-4 rounded-lg transition-all"
                                 >
                                     {t.footer.waitlistCta}
                                 </Link>
                             ) : (
                                 <a
                                     href="tel:+13052952620"
-                                    className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest py-3.5 rounded-lg transition-all whitespace-nowrap"
+                                    aria-label={t.footer.callForSeatingAria ?? "Call El Mesón de Pepe at 305-295-2620 for same-day seating"}
+                                    className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest min-h-[48px] py-4 px-4 rounded-lg transition-all whitespace-nowrap"
                                 >
-                                    <Phone size={14} className="shrink-0" />
-                                    <span>{t.footer.callForSeating || "Call for same-day seating: 305-295-2620"}</span>
+                                    <Phone size={14} className="shrink-0" aria-hidden="true" />
+                                    <span>{t.footer.callForSeating}</span>
                                 </a>
                             )}
                         </form>
