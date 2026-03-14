@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Phone, MapPin, UtensilsCrossed } from "lucide-react";
 import { GOOGLE_MAPS_URL } from "@/lib/site";
+import { GA_EVENTS } from "@/lib/analytics";
 
 export default function ContactBar() {
   return (
@@ -14,6 +15,7 @@ export default function ContactBar() {
     >
       <a
         href="tel:+13052952620"
+        onClick={() => GA_EVENTS.callClick()}
         className="flex items-center gap-1.5 text-[var(--warm-100)] text-sm font-medium hover:text-[var(--gold)] transition-colors min-h-[44px] flex-1 justify-center"
       >
         <Phone size={18} aria-hidden="true" />
@@ -21,6 +23,7 @@ export default function ContactBar() {
       </a>
       <Link
         href="/menu"
+        onClick={() => GA_EVENTS.menuClick()}
         className="flex items-center gap-1.5 text-[var(--warm-100)] text-sm font-medium hover:text-[var(--gold)] transition-colors min-h-[44px] flex-1 justify-center"
       >
         <UtensilsCrossed size={18} aria-hidden="true" />
@@ -30,6 +33,7 @@ export default function ContactBar() {
         href={GOOGLE_MAPS_URL}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => GA_EVENTS.directionsClick()}
         className="flex items-center gap-1.5 text-[var(--warm-100)] text-sm font-medium hover:text-[var(--gold)] transition-colors min-h-[44px] flex-1 justify-center"
       >
         <MapPin size={18} aria-hidden="true" />

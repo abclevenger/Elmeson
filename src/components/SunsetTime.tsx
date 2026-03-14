@@ -35,7 +35,7 @@ export default function SunsetTime() {
   }, []);
 
   if (error) return null;
-  if (!sunset) return <span className="animate-pulse">...</span>;
+  if (!sunset) return <span className="animate-pulse inline-block min-w-[4ch]" aria-hidden="true">...</span>;
 
   return <span>{sunset}</span>;
 }

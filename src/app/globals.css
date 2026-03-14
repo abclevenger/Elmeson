@@ -577,6 +577,15 @@ nav[role="navigation"] button.hover\:text-primary:hover {
     opacity: 1;
   }
 
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-on-scroll.is-visible {
+    animation: none;
+  }
+
   .featured-artifact:hover {
     transform: none;
   }

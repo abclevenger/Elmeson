@@ -7,6 +7,7 @@ import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail } from "lucide-react
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageToggle from "@/components/common/LanguageToggle";
 import { WAITLIST_ENABLED } from "@/lib/config";
+import { GA_EVENTS } from "@/lib/analytics";
 
 // Custom TikTok icon component since lucide-react doesn't include it
 const TikTokIcon = ({ size = 32, className = "" }: { size?: number; className?: string }) => (
@@ -164,6 +165,7 @@ export default function Footer() {
                             ) : (
                                 <a
                                     href="tel:+13052952620"
+                                    onClick={() => GA_EVENTS.callClick()}
                                     aria-label={t.footer.callForSeatingAria ?? "Call El Mesón de Pepe at 305-295-2620 for same-day seating"}
                                     className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--gold)]/60 bg-transparent text-white hover:bg-black hover:text-[var(--gold)] hover:border-[var(--gold)] text-xs font-bold uppercase tracking-widest min-h-[48px] py-4 px-4 rounded-lg transition-all whitespace-nowrap"
                                 >

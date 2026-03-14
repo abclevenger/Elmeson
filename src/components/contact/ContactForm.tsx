@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { GA_EVENTS } from "@/lib/analytics";
 
 interface FormErrors {
     name?: string;
@@ -53,6 +54,7 @@ export default function ContactForm() {
         try {
             // In a real implementation, this would be an API call
             await new Promise((resolve) => setTimeout(resolve, 1000));
+            GA_EVENTS.contactSubmit();
             setSubmitStatus("success");
             setName("");
             setEmail("");

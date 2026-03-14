@@ -6,6 +6,7 @@ import { ArrowDown, Sunset } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SunsetTime from "@/components/SunsetTime";
 import { WAITLIST_ENABLED } from "@/lib/config";
+import { GA_EVENTS } from "@/lib/analytics";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -79,6 +80,7 @@ export default function Hero() {
           <div className="flex flex-wrap gap-3 sm:gap-4 justify-center items-center">
             <Link
               href="/menu"
+              onClick={() => GA_EVENTS.menuClick()}
               className="btn-primary inline-flex min-h-[44px] items-center justify-center focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent"
               aria-label={t.hero.ctaMenuAria}
             >
@@ -86,6 +88,7 @@ export default function Hero() {
             </Link>
             <a
               href="tel:+13052952620"
+              onClick={() => GA_EVENTS.callClick()}
               className="btn-hero min-h-[44px] inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent"
               aria-label={t.hero.ctaCallAria}
             >
@@ -94,6 +97,7 @@ export default function Hero() {
             {WAITLIST_ENABLED && (
               <Link
                 href="/priority-seating"
+                onClick={() => GA_EVENTS.waitlistClick()}
                 className="btn-primary btn-waitlist inline-flex min-h-[44px] items-center justify-center focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:ring-offset-2 focus:ring-offset-transparent"
                 aria-label={t.hero.waitlistCtaAria}
               >

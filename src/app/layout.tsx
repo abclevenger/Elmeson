@@ -72,6 +72,7 @@ import CookieBanner from "@/components/common/CookieBanner";
 import AnniversaryBanner from "@/components/common/AnniversaryBanner";
 import DeferredThirdPartyScripts from "@/components/common/DeferredThirdPartyScripts";
 import Providers from "@/components/providers/Providers";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { OrganizationSchema } from "@/lib/schema";
 
 export default function RootLayout({
@@ -87,6 +88,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload LCP image for faster First Contentful Paint */}
+        <link rel="preload" href="/sunset-from-el-meson-2048x1087.png" as="image" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -116,14 +119,16 @@ export default function RootLayout({
           <OrganizationSchema />
           {/* suppressHydrationWarning: Cursor's embedded browser injects data-cursor-ref into the DOM, causing attribute mismatch. Not an issue in production or normal browsers. */}
           <Providers>
-            <header role="banner">
-              <Navbar />
-              <AnniversaryBanner />
-            </header>
-            <main id="main-content" aria-label="Main content" suppressHydrationWarning>{children}</main>
-            <Footer />
-            <ContactBar />
-            <CookieBanner />
+            <ErrorBoundary>
+              <header role="banner">
+                <Navbar />
+                <AnniversaryBanner />
+              </header>
+              <main id="main-content" aria-label="Main content" suppressHydrationWarning>{children}</main>
+              <Footer />
+              <ContactBar />
+              <CookieBanner />
+            </ErrorBoundary>
           </Providers>
         </div>
         {/* Third-party scripts deferred until after LCP or user interaction */}

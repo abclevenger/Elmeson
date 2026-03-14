@@ -9,12 +9,21 @@ export default function CookieBanner() {
     const cookieConsent = localStorage.getItem("cookieConsent");
     if (!cookieConsent) {
       let cancelled = false;
+      // Show after user scrolls (engaged) or 5s — avoids intrusive interstitial penalty
+      const showAfterScroll = () => {
+        if (!cancelled && window.scrollY > 100) {
+          setShowBanner(true);
+          window.removeEventListener("scroll", showAfterScroll);
+        }
+      };
       const id = setTimeout(() => {
         if (!cancelled) setShowBanner(true);
-      }, 500);
+      }, 5000);
+      window.addEventListener("scroll", showAfterScroll, { passive: true });
       return () => {
         cancelled = true;
         clearTimeout(id);
+        window.removeEventListener("scroll", showAfterScroll);
       };
     }
   }, []);

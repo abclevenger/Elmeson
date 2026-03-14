@@ -64,6 +64,11 @@ export function RestaurantSchema() {
       ratingValue: "4.5",
       reviewCount: "150",
     },
+    menu: "https://www.elmesondepepe.com/menu",
+    potentialAction: [
+      { "@type": "ReserveAction", target: { "@type": "EntryPoint", urlTemplate: "tel:+1-305-295-2620" } },
+      { "@type": "OrderAction", target: { "@type": "EntryPoint", urlTemplate: "https://www.elmesondepepe.com/menu" } },
+    ],
     sameAs: [
       "https://www.facebook.com/ElMesonKeyWest/",
       "https://www.instagram.com/elmesondepepe/",
